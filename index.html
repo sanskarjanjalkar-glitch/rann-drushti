@@ -36,510 +36,677 @@
   </style>
 </head>
 <body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
-  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 no-print">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded bg-slate-900 flex items-center justify-center text-white font-bold text-lg shadow-sm border border-slate-800">
-            <i data-lucide="shield" class="w-5 h-5 text-amber-400"></i>
-          </div>
-          <div>
-            <div class="flex items-center space-x-2">
-              <span class="font-extrabold text-slate-900 tracking-tight text-lg">रण-दृष्टि</span>
-              <span class="text-xs px-2 py-0.5 bg-slate-100 text-slate-700 font-mono font-bold rounded border border-slate-300">RANN-DRUSHTI</span>
-              <span class="text-xs px-2 py-0.5 bg-emerald-50 text-emerald-700 font-mono rounded border border-emerald-200">v3.4-ATMS</span>
-            </div>
-            <p class="text-xs text-slate-500 font-medium">Army Assessment & Training Management System • Dual-Role Console</p>
-          </div>
-        </div>
-        <div class="flex items-center space-x-4">
-          <div class="bg-slate-100 p-1 rounded-lg border border-slate-200 flex items-center space-x-1">
-            <button id="btn-portal-instructor" onclick="switchPortal('instructor')" class="px-3 py-1.5 rounded-md text-xs font-semibold transition flex items-center space-x-1.5 bg-white text-slate-900 shadow-sm border border-slate-200">
-              <i data-lucide="crown" class="w-3.5 h-3.5 text-amber-600"></i>
-              <span>Instructor Portal</span>
-            </button>
-            <button id="btn-portal-trainee" onclick="switchPortal('trainee')" class="px-3 py-1.5 rounded-md text-xs font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900">
-              <i data-lucide="user-check" class="w-3.5 h-3.5 text-slate-500"></i>
-              <span>Trainee Portal</span>
-            </button>
-          </div>
-          <div class="flex items-center space-x-3 pl-3 border-l border-slate-200">
-            <div class="w-9 h-9 rounded-full bg-slate-200 border border-slate-300 flex items-center justify-center text-xs font-bold font-mono text-slate-700" id="user-avatar-initials">VR</div>
-            <div class="hidden sm:block text-left">
-              <div class="text-xs font-bold text-slate-900 flex items-center space-x-1" id="user-display-name">
-                <span>Maj. Vikram Rathore, SM</span>
-                <span class="text-[10px] bg-slate-200 text-slate-800 px-1.5 py-0.2 rounded font-mono font-normal">DS-TACTICAL</span>
-              </div>
-              <div class="text-[11px] text-slate-500 font-mono" id="user-display-sub">Corps of Signals / Directing Staff • Session: RBAC-SECURE</div>
-            </div>
-          </div>
-          <button onclick="toggleArchModal(true)" class="p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md border border-slate-200 text-xs font-medium flex items-center space-x-1" title="View System Architecture & DB Schema">
-            <i data-lucide="file-code" class="w-4 h-4 text-blue-600"></i>
-            <span class="hidden md:inline font-mono">Arch & Schema</span>
-          </button>
-        </div>
+
+  <!-- ========================================================================= -->
+  <!-- 1. AUTHENTICATION & LOGIN GATEWAY (SHOWN IN BEGINNING)                    -->
+  <!-- ========================================================================= -->
+  <div id="view-login" class="min-h-screen flex flex-col justify-center items-center px-4 py-8 bg-slate-100">
+    <div class="mb-4 text-center">
+      <div class="inline-flex items-center space-x-2 px-3 py-1 bg-amber-100 border border-amber-300 rounded-full text-xs font-mono font-bold text-amber-900">
+        <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+        <span>SECURITY CLASSIFICATION: CONFIDENTIAL • ARTRAC DEFENCE PORTAL</span>
       </div>
     </div>
-  </header>
 
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-    <!-- INSTRUCTOR PORTAL -->
-    <div id="view-instructor" class="space-y-6">
-      <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div class="max-w-xl w-full bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+      <div class="bg-slate-900 text-white p-6 text-center space-y-2 border-b border-slate-800">
+        <div class="w-14 h-14 bg-slate-800 rounded-2xl border border-slate-700 flex items-center justify-center mx-auto shadow-inner">
+          <i data-lucide="shield" class="w-8 h-8 text-amber-400"></i>
+        </div>
         <div>
-          <div class="flex items-center space-x-2">
-            <span class="px-2 py-0.5 text-xs font-bold rounded bg-amber-100 text-amber-800 border border-amber-200 font-mono">INSPECTION LEVEL 4</span>
-            <span class="text-xs text-slate-500">Army War College / Combat Tactics Division</span>
+          <div class="flex items-center justify-center space-x-2">
+            <h1 class="text-2xl font-black tracking-tight">रण-दृष्टि</h1>
+            <span class="text-xs px-2 py-0.5 bg-slate-800 text-amber-300 font-mono font-bold rounded border border-slate-700">RANN-DRUSHTI</span>
           </div>
-          <h1 class="text-2xl font-bold text-slate-900 mt-1">Instructor Control & Assessment Management Console</h1>
-          <p class="text-sm text-slate-600">Manage cohorts, author tactical MCQs, dispatch physical/field tasks, and generate verifiable evaluation reports.</p>
-        </div>
-        <div class="flex items-center flex-wrap gap-2">
-          <button onclick="openAuthorModal()" class="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg shadow-sm flex items-center space-x-2 transition">
-            <i data-lucide="plus-circle" class="w-4 h-4"></i>
-            <span>Author Custom Question</span>
-          </button>
-          <button onclick="openDispatchTaskModal()" class="px-3.5 py-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-semibold rounded-lg shadow-sm flex items-center space-x-2 transition">
-            <i data-lucide="send" class="w-4 h-4 text-emerald-600"></i>
-            <span>Dispatch Field Task</span>
-          </button>
-          <button onclick="previewOfficialReport()" class="px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold rounded-lg shadow-sm flex items-center space-x-2 transition">
-            <i data-lucide="printer" class="w-4 h-4"></i>
-            <span>Generate Official PDF</span>
-          </button>
+          <p class="text-xs text-slate-400 mt-1 font-mono uppercase tracking-wider">Assessment & Training Management System (ATMS)</p>
+          <p class="text-[11px] text-slate-400">Army War College • Integrated Directing Staff & Cadet Evaluation Console</p>
         </div>
       </div>
 
-      <div class="flex border-b border-slate-200 space-x-6 text-sm font-semibold">
-        <button onclick="switchInstructorTab('squads')" id="tab-inst-squads" class="pb-3 border-b-2 border-slate-900 text-slate-900 flex items-center space-x-2">
-          <i data-lucide="users" class="w-4 h-4"></i>
-          <span>Squad & Group Management (6-Man Teams)</span>
+      <div class="grid grid-cols-2 bg-slate-50 border-b border-slate-200 text-xs font-bold font-mono">
+        <button id="login-tab-instructor" onclick="setLoginRole('instructor')" class="py-3 px-4 flex items-center justify-center space-x-2 border-b-2 border-slate-900 bg-white text-slate-900">
+          <i data-lucide="crown" class="w-4 h-4 text-amber-600"></i>
+          <span>INSTRUCTOR / DS</span>
         </button>
-        <button onclick="switchInstructorTab('engine')" id="tab-inst-engine" class="pb-3 border-b-2 border-transparent text-slate-500 hover:text-slate-900 flex items-center space-x-2">
-          <i data-lucide="cpu" class="w-4 h-4"></i>
-          <span>Question Generation Engine & Parameters</span>
-        </button>
-        <button onclick="switchInstructorTab('fieldtasks')" id="tab-inst-fieldtasks" class="pb-3 border-b-2 border-transparent text-slate-500 hover:text-slate-900 flex items-center space-x-2">
-          <i data-lucide="compass" class="w-4 h-4"></i>
-          <span>Field & Physical Task Dispatches</span>
-        </button>
-        <button onclick="switchInstructorTab('reports')" id="tab-inst-reports" class="pb-3 border-b-2 border-transparent text-slate-500 hover:text-slate-900 flex items-center space-x-2">
-          <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
-          <span>Performance Dashboard & Evaluation</span>
+        <button id="login-tab-trainee" onclick="setLoginRole('trainee')" class="py-3 px-4 flex items-center justify-center space-x-2 border-b-2 border-transparent text-slate-500 hover:text-slate-800">
+          <i data-lucide="user-check" class="w-4 h-4 text-slate-400"></i>
+          <span>OFFICER TRAINEE</span>
         </button>
       </div>
 
-      <!-- SQUAD TAB -->
-      <div id="inst-tab-squads" class="space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div class="bg-white p-4 rounded-xl border border-slate-200">
-            <div class="text-xs font-mono text-slate-500">ACTIVE COHORT</div>
-            <div class="text-lg font-bold text-slate-900 mt-1 flex items-center justify-between">
-              <span>ALFA SQUADRON (YO-2026)</span>
-              <span class="text-xs bg-emerald-100 text-emerald-800 font-mono px-2 py-0.5 rounded font-bold">ONLINE</span>
-            </div>
-            <div class="text-xs text-slate-500 mt-1">Directing Staff: Maj. V. Rathore</div>
-          </div>
-          <div class="bg-white p-4 rounded-xl border border-slate-200">
-            <div class="text-xs font-mono text-slate-500">ROSTER STRENGTH</div>
-            <div class="text-lg font-bold text-slate-900 mt-1 flex items-center justify-between">
-              <span>6 Officers / Cadets</span>
-              <span class="text-xs bg-slate-100 text-slate-700 font-mono px-2 py-0.5 rounded">FULL SQUAD</span>
-            </div>
-            <div class="text-xs text-slate-500 mt-1">Standard 6-Member Tactical Cell</div>
-          </div>
-          <div class="bg-white p-4 rounded-xl border border-slate-200">
-            <div class="text-xs font-mono text-slate-500">LIVE OPERATIONAL STATUS</div>
-            <div class="text-lg font-bold text-slate-900 mt-1 flex items-center space-x-2">
-              <span class="text-emerald-600 font-mono" id="stat-completed-count">3</span>
-              <span class="text-xs text-slate-500">Done</span>
-              <span class="text-slate-300">|</span>
-              <span class="text-amber-600 font-mono" id="stat-inprogress-count">2</span>
-              <span class="text-xs text-slate-500">Active</span>
-              <span class="text-slate-300">|</span>
-              <span class="text-slate-500 font-mono" id="stat-notstarted-count">1</span>
-              <span class="text-xs text-slate-500">Pending</span>
-            </div>
-            <div class="text-xs text-slate-500 mt-1">Live tracking connected</div>
-          </div>
-          <div class="bg-white p-4 rounded-xl border border-slate-200">
-            <div class="text-xs font-mono text-slate-500">AVG TACTICAL ACCURACY</div>
-            <div class="text-lg font-bold text-slate-900 mt-1 flex items-center justify-between">
-              <span id="stat-squad-accuracy" class="font-mono">82.4%</span>
-              <span class="text-xs bg-blue-100 text-blue-800 font-mono px-2 py-0.5 rounded font-bold">GRADE A-</span>
-            </div>
-            <div class="text-xs text-slate-500 mt-1">Benchmark: 75.0% Passing</div>
+      <div class="p-6 sm:p-8 space-y-5">
+        <div id="login-role-banner" class="p-3 bg-amber-50 rounded-lg border border-amber-200 flex items-start space-x-3 text-xs text-amber-900">
+          <i data-lucide="shield-alert" class="w-4 h-4 text-amber-700 shrink-0 mt-0.5"></i>
+          <div>
+            <strong class="block font-semibold" id="login-banner-title">Directing Staff / Instructor Access</strong>
+            <span id="login-banner-desc">Administrative rights to manage cohorts, author tactical MCQs, adjust countdown timers, and issue signed ARTRAC evaluation reports.</span>
           </div>
         </div>
 
-        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
-          <div class="px-5 py-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <form id="form-login" onsubmit="handleFormLogin(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase font-mono mb-1" id="label-service-no">Army Service Number (IC No)</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                <i data-lucide="badge-check" class="w-4 h-4"></i>
+              </span>
+              <input type="text" id="login-input-service" value="IC-58921" required class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg pl-9 pr-3 py-2.5 font-mono font-bold text-slate-900 focus:ring-2 focus:ring-slate-900 focus:outline-none" placeholder="e.g. IC-58921">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase font-mono mb-1">Security PIN / Access Key</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                <i data-lucide="lock" class="w-4 h-4"></i>
+              </span>
+              <input type="password" id="login-input-pin" value="TACTICAL-2026" required class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg pl-9 pr-3 py-2.5 font-mono text-slate-900 focus:ring-2 focus:ring-slate-900 focus:outline-none" placeholder="Enter secure PIN">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
             <div>
-              <h2 class="font-bold text-slate-900 text-base">Alfa Squad Roster (Standard 6-Member Team)</h2>
-              <p class="text-xs text-slate-500">Real-time status tracking for digital MCQ assessments and field task verification</p>
-            </div>
-            <div class="flex items-center space-x-2">
-              <button onclick="addSquadMemberModal()" class="px-3 py-1.5 border border-slate-300 hover:bg-slate-50 rounded-lg text-xs font-semibold text-slate-700 flex items-center space-x-1">
-                <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
-                <span>Add Member</span>
-              </button>
-              <button onclick="resetSquadDemoData()" class="px-3 py-1.5 border border-slate-300 hover:bg-slate-50 rounded-lg text-xs font-mono text-slate-600 flex items-center space-x-1">
-                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
-                <span>Reset Simulation</span>
-              </button>
-            </div>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm border-collapse">
-              <thead>
-                <tr class="bg-slate-50 text-slate-600 font-mono text-xs border-b border-slate-200">
-                  <th class="py-3 px-4 font-semibold">SR NO</th>
-                  <th class="py-3 px-4 font-semibold">SERVICE NO & NAME</th>
-                  <th class="py-3 px-4 font-semibold">ASSIGNED SQUAD ROLE</th>
-                  <th class="py-3 px-4 font-semibold">ASSESSMENT STATUS</th>
-                  <th class="py-3 px-4 font-semibold">MCQ SCORE</th>
-                  <th class="py-3 px-4 font-semibold">FIELD TASK STATUS</th>
-                  <th class="py-3 px-4 font-semibold text-right">ACTION</th>
-                </tr>
-              </thead>
-              <tbody id="squad-roster-tbody" class="divide-y divide-slate-100 font-normal text-slate-800"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- ENGINE TAB -->
-      <div id="inst-tab-engine" class="hidden space-y-6">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-4">
-            <div class="flex items-center space-x-2 border-b border-slate-200 pb-3">
-              <i data-lucide="sliders" class="w-4 h-4 text-slate-700"></i>
-              <h3 class="font-bold text-slate-900 text-sm">Test Parameter Controls</h3>
-            </div>
-            <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">TACTICAL DIFFICULTY LEVEL</label>
-              <select id="param-difficulty" onchange="updateEngineParams()" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-800">
-                <option value="Basic">Basic (Cadet Level - Fundamentals of Map & Recon)</option>
-                <option value="Intermediate" selected>Intermediate (Platoon Commander Level - Ambush Drills)</option>
-                <option value="Advanced">Advanced (Company Commander Level - Multi-Domain Joint Ops)</option>
+              <label class="block text-xs font-bold text-slate-700 uppercase font-mono mb-1">Command Division</label>
+              <select id="login-input-division" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2 font-medium text-slate-800">
+                <option value="AWC-MHOW">Army War College (Mhow)</option>
+                <option value="IMA-DDT">IMA (Dehradun)</option>
+                <option value="OTA-CH">OTA (Chennai)</option>
+                <option value="CTW-MCTE">CTW / MCTE (Mhow)</option>
               </select>
             </div>
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">COUNTDOWN TIMER CONFIGURATION</label>
-              <div class="grid grid-cols-2 gap-2">
-                <div>
-                  <span class="text-[10px] text-slate-500 uppercase font-mono">Timer Mode</span>
-                  <select id="param-timer-mode" onchange="updateEngineParams()" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2 font-medium">
-                    <option value="per-question" selected>Per Question</option>
-                    <option value="per-session">Per Session</option>
-                  </select>
+              <label class="block text-xs font-bold text-slate-700 uppercase font-mono mb-1">Security Clearance</label>
+              <select id="login-input-clearance" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2 font-medium text-slate-800">
+                <option value="LEVEL-4">Secret (Level 4 - DS)</option>
+                <option value="LEVEL-3">Restricted (Level 3 - Trainee)</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" id="btn-login-submit" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-lg shadow-sm flex items-center justify-center space-x-2 transition">
+            <i data-lucide="log-in" class="w-4 h-4"></i>
+            <span id="btn-login-text">Authenticate & Enter Console</span>
+          </button>
+        </form>
+
+        <div class="relative py-1">
+          <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-200"></div></div>
+          <div class="relative flex justify-center text-[10px] uppercase font-mono"><span class="bg-white px-2 text-slate-400">Quick-Access Demo Profiles for Officers</span></div>
+        </div>
+
+        <div class="space-y-2">
+          <button onclick="quickOfficerLogin('instructor')" class="w-full p-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg text-left flex items-center justify-between text-xs transition">
+            <div class="flex items-center space-x-2.5">
+              <span class="w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-[10px] font-bold font-mono">VR</span>
+              <div>
+                <strong class="text-slate-900 block">Maj. Vikram Rathore, SM</strong>
+                <span class="text-[10px] text-slate-500 font-mono">Chief Instructor • Senior Directing Staff (DS)</span>
+              </div>
+            </div>
+            <span class="text-[10px] font-bold text-blue-700 font-mono bg-blue-50 px-2 py-0.5 rounded border border-blue-200">1-CLICK LOGIN →</span>
+          </button>
+
+          <button onclick="quickOfficerLogin('trainee-leader')" class="w-full p-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg text-left flex items-center justify-between text-xs transition">
+            <div class="flex items-center space-x-2.5">
+              <span class="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold font-mono">AR</span>
+              <div>
+                <strong class="text-slate-900 block">Cadet Arjun Rawat (IC-84920)</strong>
+                <span class="text-[10px] text-slate-500 font-mono">Officer Trainee • Alfa Squad Leader</span>
+              </div>
+            </div>
+            <span class="text-[10px] font-bold text-emerald-700 font-mono bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1-CLICK LOGIN →</span>
+          </button>
+
+          <button onclick="quickOfficerLogin('trainee-signals')" class="w-full p-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg text-left flex items-center justify-between text-xs transition">
+            <div class="flex items-center space-x-2.5">
+              <span class="w-7 h-7 rounded-full bg-emerald-700 text-white flex items-center justify-center text-[10px] font-bold font-mono">PN</span>
+              <div>
+                <strong class="text-slate-900 block">Cadet Priya Nair (IC-84922)</strong>
+                <span class="text-[10px] text-slate-500 font-mono">Officer Trainee • Signals & EW Officer</span>
+              </div>
+            </div>
+            <span class="text-[10px] font-bold text-emerald-700 font-mono bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">1-CLICK LOGIN →</span>
+          </button>
+        </div>
+
+      </div>
+
+      <div class="bg-slate-50 px-6 py-3 border-t border-slate-200 text-center text-[11px] text-slate-500 font-mono">
+        Session: Military RBAC Enforced • Zero External Telemetry
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 2. MAIN APPLICATION CONSOLE (SHOWN AFTER SUCCESSFUL LOGIN)               -->
+  <!-- ========================================================================= -->
+  <div id="view-app" class="hidden flex-1 flex flex-col">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 no-print">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded bg-slate-900 flex items-center justify-center text-white font-bold text-lg shadow-sm border border-slate-800">
+              <i data-lucide="shield" class="w-5 h-5 text-amber-400"></i>
+            </div>
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="font-extrabold text-slate-900 tracking-tight text-lg">रण-दृष्टि</span>
+                <span class="text-xs px-2 py-0.5 bg-slate-100 text-slate-700 font-mono font-bold rounded border border-slate-300">RANN-DRUSHTI</span>
+                <span class="text-xs px-2 py-0.5 bg-emerald-50 text-emerald-700 font-mono rounded border border-emerald-200">v3.4-ATMS</span>
+              </div>
+              <p class="text-xs text-slate-500 font-medium">Army Assessment & Training Management System • Dual-Role Console</p>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-3">
+            <div class="bg-slate-100 p-1 rounded-lg border border-slate-200 flex items-center space-x-1">
+              <button id="btn-portal-instructor" onclick="switchPortal('instructor')" class="px-3 py-1.5 rounded-md text-xs font-semibold transition flex items-center space-x-1.5 bg-white text-slate-900 shadow-sm border border-slate-200">
+                <i data-lucide="crown" class="w-3.5 h-3.5 text-amber-600"></i>
+                <span>Instructor Portal</span>
+              </button>
+              <button id="btn-portal-trainee" onclick="switchPortal('trainee')" class="px-3 py-1.5 rounded-md text-xs font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900">
+                <i data-lucide="user-check" class="w-3.5 h-3.5 text-slate-500"></i>
+                <span>Trainee Portal</span>
+              </button>
+            </div>
+
+            <div class="flex items-center space-x-2.5 pl-2 border-l border-slate-200">
+              <div class="w-9 h-9 rounded-full bg-slate-900 border border-slate-800 text-white flex items-center justify-center text-xs font-bold font-mono" id="user-avatar-initials">
+                VR
+              </div>
+              <div class="hidden md:block text-left">
+                <div class="text-xs font-bold text-slate-900 flex items-center space-x-1" id="user-display-name">
+                  <span>Maj. Vikram Rathore, SM</span>
+                  <span class="text-[10px] bg-slate-200 text-slate-800 px-1.5 py-0.2 rounded font-mono font-normal">DS-TACTICAL</span>
                 </div>
-                <div>
-                  <span class="text-[10px] text-slate-500 uppercase font-mono">Duration (Seconds)</span>
-                  <input type="number" id="param-timer-seconds" value="60" min="15" max="3600" onchange="updateEngineParams()" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2 font-mono font-bold">
+                <div class="text-[11px] text-slate-500 font-mono" id="user-display-sub">
+                  Corps of Signals / Directing Staff • Session: RBAC-SECURE
                 </div>
               </div>
-              <p class="text-[11px] text-slate-500 mt-1" id="timer-mode-desc">Each question enforces a 60-second operational deadline.</p>
             </div>
-            <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">OPERATIONAL FOCUS DOMAIN</label>
-              <select id="param-topic" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium">
-                <option value="all">All Domains (Joint Combat Skills)</option>
-                <option value="tactics">Tactical Decision Making & Ambush Drills</option>
-                <option value="cbrn">NBC / CBRN Defense Protocols</option>
-                <option value="signals">Signals, EW & Cyber Infiltration</option>
-                <option value="casevac">Combat Logistics & Casualty Evacuation (CASEVAC)</option>
-              </select>
+
+            <button onclick="toggleArchModal(true)" class="p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md border border-slate-200 text-xs font-medium flex items-center space-x-1" title="View System Architecture & DB Schema">
+              <i data-lucide="file-code" class="w-4 h-4 text-blue-600"></i>
+              <span class="hidden lg:inline font-mono">Arch & Schema</span>
+            </button>
+
+            <button onclick="logoutOfficer()" class="px-2.5 py-1.5 text-xs font-semibold text-red-700 hover:bg-red-50 rounded-md border border-red-200 flex items-center space-x-1.5 transition" title="Log out and return to Login Screen">
+              <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+              <span class="hidden sm:inline">Sign Out</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <!-- PORTAL A: INSTRUCTOR -->
+      <div id="view-instructor" class="space-y-6">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-0.5 text-xs font-bold rounded bg-amber-100 text-amber-800 border border-amber-200 font-mono">INSPECTION LEVEL 4</span>
+              <span class="text-xs text-slate-500">Army War College / Combat Tactics Division</span>
             </div>
-            <div class="pt-2">
-              <button onclick="triggerDynamicGeneration()" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg shadow-sm flex items-center justify-center space-x-2 transition">
-                <i data-lucide="sparkles" class="w-4 h-4"></i>
-                <span>Generate Dynamic Questionnaire (Fresh Set)</span>
-              </button>
-              <div id="gen-feedback-msg" class="text-[11px] text-emerald-700 font-mono mt-2 hidden text-center"></div>
+            <h1 class="text-2xl font-bold text-slate-900 mt-1">Instructor Control & Assessment Management Console</h1>
+            <p class="text-sm text-slate-600">Manage cohorts, author tactical MCQs, dispatch physical/field tasks, and generate verifiable evaluation reports.</p>
+          </div>
+          <div class="flex items-center flex-wrap gap-2">
+            <button onclick="openAuthorModal()" class="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg shadow-sm flex items-center space-x-2 transition">
+              <i data-lucide="plus-circle" class="w-4 h-4"></i>
+              <span>Author Custom Question</span>
+            </button>
+            <button onclick="openDispatchTaskModal()" class="px-3.5 py-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-semibold rounded-lg shadow-sm flex items-center space-x-2 transition">
+              <i data-lucide="send" class="w-4 h-4 text-emerald-600"></i>
+              <span>Dispatch Field Task</span>
+            </button>
+            <button onclick="previewOfficialReport()" class="px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold rounded-lg shadow-sm flex items-center space-x-2 transition">
+              <i data-lucide="printer" class="w-4 h-4"></i>
+              <span>Generate Official PDF</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex border-b border-slate-200 space-x-6 text-sm font-semibold">
+          <button onclick="switchInstructorTab('squads')" id="tab-inst-squads" class="pb-3 border-b-2 border-slate-900 text-slate-900 flex items-center space-x-2">
+            <i data-lucide="users" class="w-4 h-4"></i>
+            <span>Squad & Group Management (6-Man Teams)</span>
+          </button>
+          <button onclick="switchInstructorTab('engine')" id="tab-inst-engine" class="pb-3 border-b-2 border-transparent text-slate-500 hover:text-slate-900 flex items-center space-x-2">
+            <i data-lucide="cpu" class="w-4 h-4"></i>
+            <span>Question Generation Engine & Parameters</span>
+          </button>
+          <button onclick="switchInstructorTab('fieldtasks')" id="tab-inst-fieldtasks" class="pb-3 border-b-2 border-transparent text-slate-500 hover:text-slate-900 flex items-center space-x-2">
+            <i data-lucide="compass" class="w-4 h-4"></i>
+            <span>Field & Physical Task Dispatches</span>
+          </button>
+          <button onclick="switchInstructorTab('reports')" id="tab-inst-reports" class="pb-3 border-b-2 border-transparent text-slate-500 hover:text-slate-900 flex items-center space-x-2">
+            <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+            <span>Performance Dashboard & Evaluation</span>
+          </button>
+        </div>
+
+        <!-- SQUAD TAB -->
+        <div id="inst-tab-squads" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="bg-white p-4 rounded-xl border border-slate-200">
+              <div class="text-xs font-mono text-slate-500">ACTIVE COHORT</div>
+              <div class="text-lg font-bold text-slate-900 mt-1 flex items-center justify-between">
+                <span>ALFA SQUADRON (YO-2026)</span>
+                <span class="text-xs bg-emerald-100 text-emerald-800 font-mono px-2 py-0.5 rounded font-bold">ONLINE</span>
+              </div>
+              <div class="text-xs text-slate-500 mt-1">Directing Staff: Maj. V. Rathore</div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200">
+              <div class="text-xs font-mono text-slate-500">ROSTER STRENGTH</div>
+              <div class="text-lg font-bold text-slate-900 mt-1 flex items-center justify-between">
+                <span>6 Officers / Cadets</span>
+                <span class="text-xs bg-slate-100 text-slate-700 font-mono px-2 py-0.5 rounded">FULL SQUAD</span>
+              </div>
+              <div class="text-xs text-slate-500 mt-1">Standard 6-Member Tactical Cell</div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200">
+              <div class="text-xs font-mono text-slate-500">LIVE OPERATIONAL STATUS</div>
+              <div class="text-lg font-bold text-slate-900 mt-1 flex items-center space-x-2">
+                <span class="text-emerald-600 font-mono" id="stat-completed-count">3</span>
+                <span class="text-xs text-slate-500">Done</span>
+                <span class="text-slate-300">|</span>
+                <span class="text-amber-600 font-mono" id="stat-inprogress-count">2</span>
+                <span class="text-xs text-slate-500">Active</span>
+                <span class="text-slate-300">|</span>
+                <span class="text-slate-500 font-mono" id="stat-notstarted-count">1</span>
+                <span class="text-xs text-slate-500">Pending</span>
+              </div>
+              <div class="text-xs text-slate-500 mt-1">Live tracking connected</div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200">
+              <div class="text-xs font-mono text-slate-500">AVG TACTICAL ACCURACY</div>
+              <div class="text-lg font-bold text-slate-900 mt-1 flex items-center justify-between">
+                <span id="stat-squad-accuracy" class="font-mono">82.4%</span>
+                <span class="text-xs bg-blue-100 text-blue-800 font-mono px-2 py-0.5 rounded font-bold">GRADE A-</span>
+              </div>
+              <div class="text-xs text-slate-500 mt-1">Benchmark: 75.0% Passing</div>
             </div>
           </div>
 
-          <div class="lg:col-span-2 bg-white p-5 rounded-xl border border-slate-200 flex flex-col">
-            <div class="flex items-center justify-between border-b border-slate-200 pb-3 mb-4">
+          <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+            <div class="px-5 py-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <h3 class="font-bold text-slate-900 text-sm">Active Assessment Question Bank</h3>
-                <p class="text-xs text-slate-500">Currently assigned questions for Alfa Squadron testing</p>
+                <h2 class="font-bold text-slate-900 text-base">Alfa Squad Roster (Standard 6-Member Team)</h2>
+                <p class="text-xs text-slate-500">Real-time status tracking for digital MCQ assessments and field task verification</p>
               </div>
               <div class="flex items-center space-x-2">
-                <span class="text-xs font-mono bg-slate-100 text-slate-700 px-2 py-1 rounded border border-slate-200" id="badge-question-count">5 Questions Loaded</span>
-                <button onclick="openAuthorModal()" class="px-2.5 py-1 bg-slate-900 text-white rounded text-xs font-semibold hover:bg-slate-800 flex items-center space-x-1">
-                  <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-                  <span>Author MCQ</span>
+                <button onclick="addSquadMemberModal()" class="px-3 py-1.5 border border-slate-300 hover:bg-slate-50 rounded-lg text-xs font-semibold text-slate-700 flex items-center space-x-1">
+                  <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
+                  <span>Add Member</span>
+                </button>
+                <button onclick="resetSquadDemoData()" class="px-3 py-1.5 border border-slate-300 hover:bg-slate-50 rounded-lg text-xs font-mono text-slate-600 flex items-center space-x-1">
+                  <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                  <span>Reset Simulation</span>
                 </button>
               </div>
             </div>
-            <div id="question-bank-container" class="space-y-3 overflow-y-auto max-h-[500px] pr-1"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- FIELD TASKS TAB -->
-      <div id="inst-tab-fieldtasks" class="hidden space-y-6">
-        <div class="bg-white p-5 rounded-xl border border-slate-200">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-4">
-            <div>
-              <h3 class="font-bold text-slate-900 text-base">Field & Physical Task Assignment Module</h3>
-              <p class="text-xs text-slate-500">Dispatch off-platform field objectives, night navigation exercises, and combat drills to trainees.</p>
-            </div>
-            <button onclick="openDispatchTaskModal()" class="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg flex items-center space-x-2">
-              <i data-lucide="plus" class="w-4 h-4"></i>
-              <span>Dispatch New Field Exercise</span>
-            </button>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4" id="dispatched-tasks-grid"></div>
-          <div class="mt-8">
-            <h4 class="font-bold text-slate-900 text-sm mb-3 flex items-center space-x-2">
-              <i data-lucide="check-square" class="w-4 h-4 text-emerald-600"></i>
-              <span>Incoming Trainee Field SITREP Submissions (Verification Queue)</span>
-            </h4>
-            <div class="border border-slate-200 rounded-lg overflow-hidden">
-              <table class="w-full text-left text-xs border-collapse">
-                <thead class="bg-slate-50 text-slate-600 font-mono border-b border-slate-200">
-                  <tr>
-                    <th class="py-2.5 px-3">TRAINEE</th>
-                    <th class="py-2.5 px-3">TASK TITLE</th>
-                    <th class="py-2.5 px-3">GRID / WAYPOINT</th>
-                    <th class="py-2.5 px-3">TIME LOGGED</th>
-                    <th class="py-2.5 px-3">VERIFICATION NOTES</th>
-                    <th class="py-2.5 px-3">STATUS</th>
-                    <th class="py-2.5 px-3 text-right">EVALUATION</th>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm border-collapse">
+                <thead>
+                  <tr class="bg-slate-50 text-slate-600 font-mono text-xs border-b border-slate-200">
+                    <th class="py-3 px-4 font-semibold">SR NO</th>
+                    <th class="py-3 px-4 font-semibold">SERVICE NO & NAME</th>
+                    <th class="py-3 px-4 font-semibold">ASSIGNED SQUAD ROLE</th>
+                    <th class="py-3 px-4 font-semibold">ASSESSMENT STATUS</th>
+                    <th class="py-3 px-4 font-semibold">MCQ SCORE</th>
+                    <th class="py-3 px-4 font-semibold">FIELD TASK STATUS</th>
+                    <th class="py-3 px-4 font-semibold text-right">ACTION</th>
                   </tr>
                 </thead>
-                <tbody id="field-submissions-tbody" class="divide-y divide-slate-100 text-slate-800"></tbody>
+                <tbody id="squad-roster-tbody" class="divide-y divide-slate-100 font-normal text-slate-800"></tbody>
               </table>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- REPORTS TAB -->
-      <div id="inst-tab-reports" class="hidden space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
-            <h4 class="text-xs font-mono font-bold text-slate-500 uppercase">Speed & Decision Velocity</h4>
-            <div class="text-3xl font-mono font-extrabold text-slate-900">38.4s</div>
-            <p class="text-xs text-slate-600">Average response time per question under tactical time pressure.</p>
-            <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-              <div class="bg-blue-600 h-2 rounded-full" style="width: 76%"></div>
-            </div>
-            <span class="text-[11px] text-emerald-700 font-medium">✓ 21% faster than doctrinal standard (50s)</span>
-          </div>
-          <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
-            <h4 class="text-xs font-mono font-bold text-slate-500 uppercase">Squad Cohesion & Participation</h4>
-            <div class="text-3xl font-mono font-extrabold text-slate-900">83.3%</div>
-            <p class="text-xs text-slate-600">5 of 6 squad members have completed or are actively engaged.</p>
-            <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-              <div class="bg-emerald-600 h-2 rounded-full" style="width: 83.3%"></div>
-            </div>
-            <span class="text-[11px] text-slate-500">Cadet Devendra Singh (Scout) pending login</span>
-          </div>
-          <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
-            <h4 class="text-xs font-mono font-bold text-slate-500 uppercase">Doctrinal Knowledge Mastery</h4>
-            <div class="text-3xl font-mono font-extrabold text-slate-900">High</div>
-            <p class="text-xs text-slate-600">Strongest in NBC warfare; needs refresher on Tactical Ambush withdrawal.</p>
-            <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-              <div class="bg-amber-500 h-2 rounded-full" style="width: 88%"></div>
-            </div>
-            <span class="text-[11px] text-blue-700 font-medium">Recommended for Advanced Stage IV testing</span>
-          </div>
-        </div>
-        <div class="bg-slate-900 text-white p-6 rounded-xl flex flex-col md:flex-row items-center justify-between gap-4">
-          <div>
-            <div class="flex items-center space-x-2">
-              <span class="px-2 py-0.5 bg-amber-400 text-slate-900 text-xs font-bold font-mono rounded">OFFICIAL ARTRAC FORM</span>
-              <span class="text-xs text-slate-300">Format: MOD-EVAL-2026-A</span>
-            </div>
-            <h3 class="text-xl font-bold mt-1">Exportable Official Squad Performance PDF Report</h3>
-            <p class="text-xs text-slate-300 max-w-xl mt-1">Generates an authoritative, printer-ready evaluation sheet complete with individual scores, field task verification logs, squad roster, and the Directing Staff signature block.</p>
-          </div>
-          <button onclick="previewOfficialReport()" class="px-5 py-3 bg-white text-slate-900 hover:bg-slate-100 font-bold text-xs rounded-lg shadow flex items-center space-x-2 shrink-0 transition">
-            <i data-lucide="printer" class="w-4 h-4 text-emerald-600"></i>
-            <span>Preview & Download Official PDF</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- TRAINEE PORTAL -->
-    <div id="view-trainee" class="hidden space-y-6">
-      <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div class="flex items-center space-x-2">
-            <span class="px-2 py-0.5 text-xs font-bold rounded bg-blue-100 text-blue-800 border border-blue-200 font-mono">CADET INTERACTIVE CONSOLE</span>
-            <span class="text-xs text-slate-500">Tactical Assessment & Field Verification</span>
-          </div>
-          <h1 class="text-2xl font-bold text-slate-900 mt-1" id="trainee-welcome-title">Cadet Arjun Rawat (IC-84920)</h1>
-          <p class="text-sm text-slate-600">Assigned Squad: <strong class="text-slate-900">Alfa Squadron (Role: Squad Leader)</strong> • Directing Staff: Maj. V. Rathore</p>
-        </div>
-        <div class="flex items-center space-x-3">
-          <div class="text-right">
-            <span class="text-[10px] text-slate-400 uppercase font-mono block">Simulate Cadet</span>
-            <select id="select-trainee-persona" onchange="onTraineePersonaChange()" class="text-xs bg-slate-50 border border-slate-300 rounded p-1.5 font-medium text-slate-800">
-              <option value="cadet-1" selected>Cadet Arjun Rawat (Squad Leader)</option>
-              <option value="cadet-2">Cadet Devendra Singh (Scout)</option>
-              <option value="cadet-3">Cadet Priya Nair (Signals)</option>
-              <option value="cadet-4">Cadet Manpreet Gill (2IC)</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex border-b border-slate-200 space-x-6 text-sm font-semibold">
-        <button onclick="switchTraineeTab('assessment')" id="tab-tr-assessment" class="pb-3 border-b-2 border-slate-900 text-slate-900 flex items-center space-x-2">
-          <i data-lucide="help-circle" class="w-4 h-4"></i>
-          <span>Live Tactical MCQ Assessment</span>
-        </button>
-        <button onclick="switchTraineeTab('fieldtask')" id="tab-tr-fieldtask" class="pb-3 border-b-2 border-transparent text-slate-500 hover:text-slate-900 flex items-center space-x-2">
-          <i data-lucide="compass" class="w-4 h-4"></i>
-          <span>Assigned Field / Physical Tasks</span>
-        </button>
-        <button onclick="switchTraineeTab('dossier')" id="tab-tr-dossier" class="pb-3 border-b-2 border-transparent text-slate-500 hover:text-slate-900 flex items-center space-x-2">
-          <i data-lucide="award" class="w-4 h-4"></i>
-          <span>Individual Performance Dossier</span>
-        </button>
-      </div>
-
-      <!-- TRAINEE ASSESSMENT TAB -->
-      <div id="tr-tab-assessment" class="space-y-6">
-        <div id="assessment-runner-card" class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
-          <div class="bg-slate-900 text-white px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div>
-              <div class="flex items-center space-x-2">
-                <span class="text-xs px-2 py-0.5 bg-amber-400 text-slate-900 font-mono font-bold rounded">TIMED EVALUATION</span>
-                <span class="text-xs text-slate-300 font-mono" id="exam-difficulty-badge">DIFFICULTY: INTERMEDIATE</span>
+        <!-- ENGINE TAB -->
+        <div id="inst-tab-engine" class="hidden space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-4">
+              <div class="flex items-center space-x-2 border-b border-slate-200 pb-3">
+                <i data-lucide="sliders" class="w-4 h-4 text-slate-700"></i>
+                <h3 class="font-bold text-slate-900 text-sm">Test Parameter Controls</h3>
               </div>
-              <h2 class="text-base font-bold mt-1 text-white">Tactical Decision Making & Ambush Doctrine</h2>
-            </div>
-            <div class="flex items-center space-x-3 bg-slate-800 border border-slate-700 px-4 py-2 rounded-lg">
-              <i data-lucide="clock" class="w-5 h-5 text-amber-400"></i>
               <div>
-                <div class="text-[10px] text-slate-400 font-mono uppercase">Time Remaining</div>
-                <div class="text-lg font-mono font-bold text-white tracking-wider" id="exam-timer-display">00:45</div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">TACTICAL DIFFICULTY LEVEL</label>
+                <select id="param-difficulty" onchange="updateEngineParams()" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-800">
+                  <option value="Basic">Basic (Cadet Level - Fundamentals of Map & Recon)</option>
+                  <option value="Intermediate" selected>Intermediate (Platoon Commander Level - Ambush Drills)</option>
+                  <option value="Advanced">Advanced (Company Commander Level - Multi-Domain Joint Ops)</option>
+                </select>
               </div>
-            </div>
-          </div>
-
-          <div class="w-full bg-slate-100 h-1.5">
-            <div id="exam-progress-bar" class="bg-blue-600 h-1.5 transition-all duration-300" style="width: 20%;"></div>
-          </div>
-
-          <div class="p-6 md:p-8 space-y-6" id="exam-body-container">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-mono font-bold text-slate-500 uppercase" id="exam-q-number-badge">QUESTION 1 OF 5</span>
-              <span class="text-xs font-mono bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded border border-slate-200" id="exam-q-domain-badge">TACTICAL MOVEMENT</span>
-            </div>
-            <div class="text-lg font-semibold text-slate-900 leading-relaxed" id="exam-q-prompt">
-              While conducting a daylight reconnaissance patrol through undulating scrub terrain, your lead scout reports enemy infantry movement at Grid 482-914, approximately 350 meters ahead, with visual indication of an unspotted machine gun emplacement. What is your immediate tactical drill?
-            </div>
-            <div class="space-y-3" id="exam-options-container"></div>
-            <div class="flex items-center justify-between pt-4 border-t border-slate-200">
-              <button id="btn-exam-prev" onclick="navigateExamQuestion(-1)" class="px-4 py-2 border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-lg text-xs font-semibold flex items-center space-x-1.5 disabled:opacity-50">
-                <i data-lucide="chevron-left" class="w-4 h-4"></i>
-                <span>Previous</span>
-              </button>
-              <div class="flex items-center space-x-2">
-                <button id="btn-exam-next" onclick="navigateExamQuestion(1)" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-semibold flex items-center space-x-1.5">
-                  <span>Next Question</span>
-                  <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">COUNTDOWN TIMER CONFIGURATION</label>
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <span class="text-[10px] text-slate-500 uppercase font-mono">Timer Mode</span>
+                    <select id="param-timer-mode" onchange="updateEngineParams()" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2 font-medium">
+                      <option value="per-question" selected>Per Question</option>
+                      <option value="per-session">Per Session</option>
+                    </select>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-slate-500 uppercase font-mono">Duration (Seconds)</span>
+                    <input type="number" id="param-timer-seconds" value="60" min="15" max="3600" onchange="updateEngineParams()" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2 font-mono font-bold">
+                  </div>
+                </div>
+                <p class="text-[11px] text-slate-500 mt-1" id="timer-mode-desc">Each question enforces a 60-second operational deadline.</p>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">OPERATIONAL FOCUS DOMAIN</label>
+                <select id="param-topic" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium">
+                  <option value="all">All Domains (Joint Combat Skills)</option>
+                  <option value="tactics">Tactical Decision Making & Ambush Drills</option>
+                  <option value="cbrn">NBC / CBRN Defense Protocols</option>
+                  <option value="signals">Signals, EW & Cyber Infiltration</option>
+                  <option value="casevac">Combat Logistics & Casualty Evacuation (CASEVAC)</option>
+                </select>
+              </div>
+              <div class="pt-2">
+                <button onclick="triggerDynamicGeneration()" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg shadow-sm flex items-center justify-center space-x-2 transition">
+                  <i data-lucide="sparkles" class="w-4 h-4"></i>
+                  <span>Generate Dynamic Questionnaire (Fresh Set)</span>
                 </button>
-                <button id="btn-exam-submit" onclick="submitExamAssessment()" class="hidden px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-xs font-bold flex items-center space-x-1.5">
-                  <i data-lucide="check-circle" class="w-4 h-4"></i>
-                  <span>Submit Final Assessment</span>
-                </button>
+                <div id="gen-feedback-msg" class="text-[11px] text-emerald-700 font-mono mt-2 hidden text-center"></div>
               </div>
+            </div>
+
+            <div class="lg:col-span-2 bg-white p-5 rounded-xl border border-slate-200 flex flex-col">
+              <div class="flex items-center justify-between border-b border-slate-200 pb-3 mb-4">
+                <div>
+                  <h3 class="font-bold text-slate-900 text-sm">Active Assessment Question Bank</h3>
+                  <p class="text-xs text-slate-500">Currently assigned questions for Alfa Squadron testing</p>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-xs font-mono bg-slate-100 text-slate-700 px-2 py-1 rounded border border-slate-200" id="badge-question-count">5 Questions Loaded</span>
+                  <button onclick="openAuthorModal()" class="px-2.5 py-1 bg-slate-900 text-white rounded text-xs font-semibold hover:bg-slate-800 flex items-center space-x-1">
+                    <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                    <span>Author MCQ</span>
+                  </button>
+                </div>
+              </div>
+              <div id="question-bank-container" class="space-y-3 overflow-y-auto max-h-[500px] pr-1"></div>
             </div>
           </div>
+        </div>
 
-          <div id="exam-completed-view" class="hidden p-8 text-center space-y-4">
-            <div class="w-16 h-16 bg-emerald-100 text-emerald-800 rounded-full flex items-center justify-center mx-auto border border-emerald-300">
-              <i data-lucide="award" class="w-8 h-8"></i>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900">Assessment Submitted Successfully</h3>
-            <p class="text-sm text-slate-600 max-w-md mx-auto">Your responses have been evaluated and synced to Directing Staff console. Live squad status has updated to <span class="font-mono font-bold text-emerald-700">COMPLETED</span>.</p>
-            <div class="inline-grid grid-cols-3 gap-4 bg-slate-50 border border-slate-200 p-4 rounded-xl text-left max-w-lg mx-auto">
+        <!-- FIELD TASKS TAB -->
+        <div id="inst-tab-fieldtasks" class="hidden space-y-6">
+          <div class="bg-white p-5 rounded-xl border border-slate-200">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-4">
               <div>
-                <span class="text-[10px] text-slate-500 font-mono">SCORE</span>
-                <div class="text-lg font-bold font-mono text-slate-900" id="final-score-display">4 / 5 (80%)</div>
+                <h3 class="font-bold text-slate-900 text-base">Field & Physical Task Assignment Module</h3>
+                <p class="text-xs text-slate-500">Dispatch off-platform field objectives, night navigation exercises, and combat drills to trainees.</p>
               </div>
-              <div>
-                <span class="text-[10px] text-slate-500 font-mono">TIME TAKEN</span>
-                <div class="text-lg font-bold font-mono text-slate-900" id="final-time-display">2m 45s</div>
-              </div>
-              <div>
-                <span class="text-[10px] text-slate-500 font-mono">GRADE</span>
-                <div class="text-lg font-bold font-mono text-emerald-700">QUALIFIED (A)</div>
-              </div>
-            </div>
-            <div class="pt-2 flex justify-center space-x-3">
-              <button onclick="retakeAssessmentDemo()" class="px-4 py-2 border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-semibold rounded-lg">Retake Assessment</button>
-              <button onclick="switchTraineeTab('fieldtask')" class="px-4 py-2 bg-slate-900 text-white hover:bg-slate-800 text-xs font-semibold rounded-lg flex items-center space-x-1.5">
-                <span>Proceed to Field Task</span>
-                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              <button onclick="openDispatchTaskModal()" class="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg flex items-center space-x-2">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                <span>Dispatch New Field Exercise</span>
               </button>
             </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4" id="dispatched-tasks-grid"></div>
+            <div class="mt-8">
+              <h4 class="font-bold text-slate-900 text-sm mb-3 flex items-center space-x-2">
+                <i data-lucide="check-square" class="w-4 h-4 text-emerald-600"></i>
+                <span>Incoming Trainee Field SITREP Submissions (Verification Queue)</span>
+              </h4>
+              <div class="border border-slate-200 rounded-lg overflow-hidden">
+                <table class="w-full text-left text-xs border-collapse">
+                  <thead class="bg-slate-50 text-slate-600 font-mono border-b border-slate-200">
+                    <tr>
+                      <th class="py-2.5 px-3">TRAINEE</th>
+                      <th class="py-2.5 px-3">TASK TITLE</th>
+                      <th class="py-2.5 px-3">GRID / WAYPOINT</th>
+                      <th class="py-2.5 px-3">TIME LOGGED</th>
+                      <th class="py-2.5 px-3">VERIFICATION NOTES</th>
+                      <th class="py-2.5 px-3">STATUS</th>
+                      <th class="py-2.5 px-3 text-right">EVALUATION</th>
+                    </tr>
+                  </thead>
+                  <tbody id="field-submissions-tbody" class="divide-y divide-slate-100 text-slate-800"></tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- TRAINEE FIELD TASK TAB -->
-      <div id="tr-tab-fieldtask" class="hidden space-y-6">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-4">
-            <h3 class="font-bold text-slate-900 text-sm flex items-center space-x-2 border-b border-slate-200 pb-3">
-              <i data-lucide="compass" class="w-4 h-4 text-emerald-600"></i>
-              <span>Active Field Exercises</span>
-            </h3>
-            <div class="space-y-2" id="trainee-tasks-list"></div>
+        <!-- REPORTS TAB -->
+        <div id="inst-tab-reports" class="hidden space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
+              <h4 class="text-xs font-mono font-bold text-slate-500 uppercase">Speed & Decision Velocity</h4>
+              <div class="text-3xl font-mono font-extrabold text-slate-900">38.4s</div>
+              <p class="text-xs text-slate-600">Average response time per question under tactical time pressure.</p>
+              <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                <div class="bg-blue-600 h-2 rounded-full" style="width: 76%"></div>
+              </div>
+              <span class="text-[11px] text-emerald-700 font-medium">✓ 21% faster than doctrinal standard (50s)</span>
+            </div>
+            <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
+              <h4 class="text-xs font-mono font-bold text-slate-500 uppercase">Squad Cohesion & Participation</h4>
+              <div class="text-3xl font-mono font-extrabold text-slate-900">83.3%</div>
+              <p class="text-xs text-slate-600">5 of 6 squad members have completed or are actively engaged.</p>
+              <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                <div class="bg-emerald-600 h-2 rounded-full" style="width: 83.3%"></div>
+              </div>
+              <span class="text-[11px] text-slate-500">Cadet Devendra Singh (Scout) pending login</span>
+            </div>
+            <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
+              <h4 class="text-xs font-mono font-bold text-slate-500 uppercase">Doctrinal Knowledge Mastery</h4>
+              <div class="text-3xl font-mono font-extrabold text-slate-900">High</div>
+              <p class="text-xs text-slate-600">Strongest in NBC warfare; needs refresher on Tactical Ambush withdrawal.</p>
+              <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                <div class="bg-amber-500 h-2 rounded-full" style="width: 88%"></div>
+              </div>
+              <span class="text-[11px] text-blue-700 font-medium">Recommended for Advanced Stage IV testing</span>
+            </div>
           </div>
-          <div class="lg:col-span-2 bg-white p-5 rounded-xl border border-slate-200 space-y-5" id="trainee-active-task-detail"></div>
-        </div>
-      </div>
-
-      <!-- TRAINEE DOSSIER TAB -->
-      <div id="tr-tab-dossier" class="hidden space-y-6">
-        <div class="bg-white p-6 rounded-xl border border-slate-200 space-y-6">
-          <div class="border-b border-slate-200 pb-4 flex justify-between items-center">
+          <div class="bg-slate-900 text-white p-6 rounded-xl flex flex-col md:flex-row items-center justify-between gap-4">
             <div>
-              <h3 class="text-lg font-bold text-slate-900">Officer Trainee Assessment Dossier</h3>
-              <p class="text-xs text-slate-500 font-mono">Service No: IC-84920 • Unit: Alfa Squad • Cadre: Tactical Decision Training</p>
+              <div class="flex items-center space-x-2">
+                <span class="px-2 py-0.5 bg-amber-400 text-slate-900 text-xs font-bold font-mono rounded">OFFICIAL ARTRAC FORM</span>
+                <span class="text-xs text-slate-300">Format: MOD-EVAL-2026-A</span>
+              </div>
+              <h3 class="text-xl font-bold mt-1">Exportable Official Squad Performance PDF Report</h3>
+              <p class="text-xs text-slate-300 max-w-xl mt-1">Generates an authoritative, printer-ready evaluation sheet complete with individual scores, field task verification logs, squad roster, and the Directing Staff signature block.</p>
             </div>
-            <span class="px-3 py-1 bg-emerald-100 text-emerald-800 font-mono text-xs font-bold rounded-full">STATUS: ACTIVE QUALIFIED</span>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
-              <span class="text-xs font-mono text-slate-500">THEORETICAL DOCTRINE</span>
-              <div class="text-2xl font-bold font-mono text-slate-900 mt-1">85.0%</div>
-              <p class="text-xs text-slate-600 mt-1">Excellent understanding of NBC and Tactical Ambush drills.</p>
-            </div>
-            <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
-              <span class="text-xs font-mono text-slate-500">FIELD TASK EXECUTION</span>
-              <div class="text-2xl font-bold font-mono text-emerald-700 mt-1">VERIFIED</div>
-              <p class="text-xs text-slate-600 mt-1">Night compass march completed in 34 mins (standard: 40m).</p>
-            </div>
-            <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
-              <span class="text-xs font-mono text-slate-500">DECISION PRESSURE INDEX</span>
-              <div class="text-2xl font-bold font-mono text-blue-700 mt-1">0.88 / 1.0</div>
-              <p class="text-xs text-slate-600 mt-1">Low hesitation, rapid situational adaptation under countdown.</p>
-            </div>
-          </div>
-          <div class="border-t border-slate-200 pt-4 flex justify-end">
-            <button onclick="previewOfficialReport()" class="px-4 py-2 bg-slate-900 text-white rounded-lg text-xs font-semibold flex items-center space-x-2">
-              <i data-lucide="file-text" class="w-4 h-4"></i>
-              <span>View & Print Official Evaluation Sheet</span>
+            <button onclick="previewOfficialReport()" class="px-5 py-3 bg-white text-slate-900 hover:bg-slate-100 font-bold text-xs rounded-lg shadow flex items-center space-x-2 shrink-0 transition">
+              <i data-lucide="printer" class="w-4 h-4 text-emerald-600"></i>
+              <span>Preview & Download Official PDF</span>
             </button>
           </div>
         </div>
       </div>
-    </div>
-  </main>
 
-  <!-- AUTHOR MODAL -->
+      <!-- PORTAL B: TRAINEE -->
+      <div id="view-trainee" class="hidden space-y-6">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="px-2 py-0.5 text-xs font-bold rounded bg-blue-100 text-blue-800 border border-blue-200 font-mono">CADET INTERACTIVE CONSOLE</span>
+              <span class="text-xs text-slate-500">Tactical Assessment & Field Verification</span>
+            </div>
+            <h1 class="text-2xl font-bold text-slate-900 mt-1" id="trainee-welcome-title">Cadet Arjun Rawat (IC-84920)</h1>
+            <p class="text-sm text-slate-600">Assigned Squad: <strong class="text-slate-900">Alfa Squadron (Role: Squad Leader)</strong> • Directing Staff: Maj. V. Rathore</p>
+          </div>
+          <div class="flex items-center space-x-3">
+            <div class="text-right">
+              <span class="text-[10px] text-slate-400 uppercase font-mono block">Simulate Cadet</span>
+              <select id="select-trainee-persona" onchange="onTraineePersonaChange()" class="text-xs bg-slate-50 border border-slate-300 rounded p-1.5 font-medium text-slate-800">
+                <option value="cadet-1" selected>Cadet Arjun Rawat (Squad Leader)</option>
+                <option value="cadet-2">Cadet Devendra Singh (Scout)</option>
+                <option value="cadet-3">Cadet Priya Nair (Signals)</option>
+                <option value="cadet-4">Cadet Manpreet Gill (2IC)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex border-b border-slate-200 space-x-6 text-sm font-semibold">
+          <button onclick="switchTraineeTab('assessment')" id="tab-tr-assessment" class="pb-3 border-b-2 border-slate-900 text-slate-900 flex items-center space-x-2">
+            <i data-lucide="help-circle" class="w-4 h-4"></i>
+            <span>Live Tactical MCQ Assessment</span>
+          </button>
+          <button onclick="switchTraineeTab('fieldtask')" id="tab-tr-fieldtask" class="pb-3 border-b-2 border-transparent text-slate-500 hover:text-slate-900 flex items-center space-x-2">
+            <i data-lucide="compass" class="w-4 h-4"></i>
+            <span>Assigned Field / Physical Tasks</span>
+          </button>
+          <button onclick="switchTraineeTab('dossier')" id="tab-tr-dossier" class="pb-3 border-b-2 border-transparent text-slate-500 hover:text-slate-900 flex items-center space-x-2">
+            <i data-lucide="award" class="w-4 h-4"></i>
+            <span>Individual Performance Dossier</span>
+          </button>
+        </div>
+
+        <!-- TRAINEE ASSESSMENT TAB -->
+        <div id="tr-tab-assessment" class="space-y-6">
+          <div id="assessment-runner-card" class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+            <div class="bg-slate-900 text-white px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-xs px-2 py-0.5 bg-amber-400 text-slate-900 font-mono font-bold rounded">TIMED EVALUATION</span>
+                  <span class="text-xs text-slate-300 font-mono" id="exam-difficulty-badge">DIFFICULTY: INTERMEDIATE</span>
+                </div>
+                <h2 class="text-base font-bold mt-1 text-white">Tactical Decision Making & Ambush Doctrine</h2>
+              </div>
+              <div class="flex items-center space-x-3 bg-slate-800 border border-slate-700 px-4 py-2 rounded-lg">
+                <i data-lucide="clock" class="w-5 h-5 text-amber-400"></i>
+                <div>
+                  <div class="text-[10px] text-slate-400 font-mono uppercase">Time Remaining</div>
+                  <div class="text-lg font-mono font-bold text-white tracking-wider" id="exam-timer-display">00:45</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="w-full bg-slate-100 h-1.5">
+              <div id="exam-progress-bar" class="bg-blue-600 h-1.5 transition-all duration-300" style="width: 20%;"></div>
+            </div>
+
+            <div class="p-6 md:p-8 space-y-6" id="exam-body-container">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-mono font-bold text-slate-500 uppercase" id="exam-q-number-badge">QUESTION 1 OF 5</span>
+                <span class="text-xs font-mono bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded border border-slate-200" id="exam-q-domain-badge">TACTICAL MOVEMENT</span>
+              </div>
+              <div class="text-lg font-semibold text-slate-900 leading-relaxed" id="exam-q-prompt">
+                While conducting a daylight reconnaissance patrol through undulating scrub terrain, your lead scout reports enemy infantry movement at Grid 482-914, approximately 350 meters ahead, with visual indication of an unspotted machine gun emplacement. What is your immediate tactical drill?
+              </div>
+              <div class="space-y-3" id="exam-options-container"></div>
+              <div class="flex items-center justify-between pt-4 border-t border-slate-200">
+                <button id="btn-exam-prev" onclick="navigateExamQuestion(-1)" class="px-4 py-2 border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-lg text-xs font-semibold flex items-center space-x-1.5 disabled:opacity-50">
+                  <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                  <span>Previous</span>
+                </button>
+                <div class="flex items-center space-x-2">
+                  <button id="btn-exam-next" onclick="navigateExamQuestion(1)" class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-semibold flex items-center space-x-1.5">
+                    <span>Next Question</span>
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                  </button>
+                  <button id="btn-exam-submit" onclick="submitExamAssessment()" class="hidden px-5 py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-xs font-bold flex items-center space-x-1.5">
+                    <i data-lucide="check-circle" class="w-4 h-4"></i>
+                    <span>Submit Final Assessment</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div id="exam-completed-view" class="hidden p-8 text-center space-y-4">
+              <div class="w-16 h-16 bg-emerald-100 text-emerald-800 rounded-full flex items-center justify-center mx-auto border border-emerald-300">
+                <i data-lucide="award" class="w-8 h-8"></i>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900">Assessment Submitted Successfully</h3>
+              <p class="text-sm text-slate-600 max-w-md mx-auto">Your responses have been evaluated and synced to Directing Staff console. Live squad status has updated to <span class="font-mono font-bold text-emerald-700">COMPLETED</span>.</p>
+              <div class="inline-grid grid-cols-3 gap-4 bg-slate-50 border border-slate-200 p-4 rounded-xl text-left max-w-lg mx-auto">
+                <div>
+                  <span class="text-[10px] text-slate-500 font-mono">SCORE</span>
+                  <div class="text-lg font-bold font-mono text-slate-900" id="final-score-display">4 / 5 (80%)</div>
+                </div>
+                <div>
+                  <span class="text-[10px] text-slate-500 font-mono">TIME TAKEN</span>
+                  <div class="text-lg font-bold font-mono text-slate-900" id="final-time-display">2m 45s</div>
+                </div>
+                <div>
+                  <span class="text-[10px] text-slate-500 font-mono">GRADE</span>
+                  <div class="text-lg font-bold font-mono text-emerald-700">QUALIFIED (A)</div>
+                </div>
+              </div>
+              <div class="pt-2 flex justify-center space-x-3">
+                <button onclick="retakeAssessmentDemo()" class="px-4 py-2 border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-semibold rounded-lg">Retake Assessment</button>
+                <button onclick="switchTraineeTab('fieldtask')" class="px-4 py-2 bg-slate-900 text-white hover:bg-slate-800 text-xs font-semibold rounded-lg flex items-center space-x-1.5">
+                  <span>Proceed to Field Task</span>
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TRAINEE FIELD TASK TAB -->
+        <div id="tr-tab-fieldtask" class="hidden space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="bg-white p-5 rounded-xl border border-slate-200 space-y-4">
+              <h3 class="font-bold text-slate-900 text-sm flex items-center space-x-2 border-b border-slate-200 pb-3">
+                <i data-lucide="compass" class="w-4 h-4 text-emerald-600"></i>
+                <span>Active Field Exercises</span>
+              </h3>
+              <div class="space-y-2" id="trainee-tasks-list"></div>
+            </div>
+            <div class="lg:col-span-2 bg-white p-5 rounded-xl border border-slate-200 space-y-5" id="trainee-active-task-detail"></div>
+          </div>
+        </div>
+
+        <!-- TRAINEE DOSSIER TAB -->
+        <div id="tr-tab-dossier" class="hidden space-y-6">
+          <div class="bg-white p-6 rounded-xl border border-slate-200 space-y-6">
+            <div class="border-b border-slate-200 pb-4 flex justify-between items-center">
+              <div>
+                <h3 class="text-lg font-bold text-slate-900">Officer Trainee Assessment Dossier</h3>
+                <p class="text-xs text-slate-500 font-mono">Service No: IC-84920 • Unit: Alfa Squad • Cadre: Tactical Decision Training</p>
+              </div>
+              <span class="px-3 py-1 bg-emerald-100 text-emerald-800 font-mono text-xs font-bold rounded-full">STATUS: ACTIVE QUALIFIED</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                <span class="text-xs font-mono text-slate-500">THEORETICAL DOCTRINE</span>
+                <div class="text-2xl font-bold font-mono text-slate-900 mt-1">85.0%</div>
+                <p class="text-xs text-slate-600 mt-1">Excellent understanding of NBC and Tactical Ambush drills.</p>
+              </div>
+              <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                <span class="text-xs font-mono text-slate-500">FIELD TASK EXECUTION</span>
+                <div class="text-2xl font-bold font-mono text-emerald-700 mt-1">VERIFIED</div>
+                <p class="text-xs text-slate-600 mt-1">Night compass march completed in 34 mins (standard: 40m).</p>
+              </div>
+              <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                <span class="text-xs font-mono text-slate-500">DECISION PRESSURE INDEX</span>
+                <div class="text-2xl font-bold font-mono text-blue-700 mt-1">0.88 / 1.0</div>
+                <p class="text-xs text-slate-600 mt-1">Low hesitation, rapid situational adaptation under countdown.</p>
+              </div>
+            </div>
+            <div class="border-t border-slate-200 pt-4 flex justify-end">
+              <button onclick="previewOfficialReport()" class="px-4 py-2 bg-slate-900 text-white rounded-lg text-xs font-semibold flex items-center space-x-2">
+                <i data-lucide="file-text" class="w-4 h-4"></i>
+                <span>View & Print Official Evaluation Sheet</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-4 mt-auto no-print">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
+        <div><span class="font-bold text-slate-800">RANN-DRUSHTI (रण-दृष्टि)</span> • Assessment & Training Management System</div>
+        <div class="font-mono text-[11px]">Doctrinal Readiness Engine • Portals: Dual-Role • Local Host: 8000</div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- MODALS -->
   <div id="modal-author-question" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 space-y-4 max-h-[90vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b border-slate-200 pb-3">
@@ -617,7 +784,6 @@
     </div>
   </div>
 
-  <!-- DISPATCH TASK MODAL -->
   <div id="modal-dispatch-task" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 space-y-4">
       <div class="flex items-center justify-between border-b border-slate-200 pb-3">
@@ -674,7 +840,6 @@
     </div>
   </div>
 
-  <!-- ADD MEMBER MODAL -->
   <div id="modal-add-member" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
       <div class="flex items-center justify-between border-b border-slate-200 pb-3">
@@ -709,7 +874,6 @@
     </div>
   </div>
 
-  <!-- ARCHITECTURE MODAL -->
   <div id="modal-architecture" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-4xl w-full p-6 shadow-2xl border border-slate-200 space-y-4 max-h-[90vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b border-slate-200 pb-3">
@@ -787,7 +951,6 @@
     </div>
   </div>
 
-  <!-- OFFICIAL PRINTABLE PDF EVALUATION REPORT -->
   <div id="printable-pdf-report" class="hidden bg-white text-black p-8 max-w-4xl mx-auto border border-slate-300 shadow-xl my-6 rounded-lg font-sans">
     <div class="flex items-center justify-between pb-4 mb-6 border-b border-slate-300 no-print">
       <div class="flex items-center space-x-2">
@@ -862,652 +1025,6 @@
       </div>
     </div>
   </div>
-
-  <footer class="bg-white border-t border-slate-200 py-4 mt-auto no-print">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
-      <div><span class="font-bold text-slate-800">RANN-DRUSHTI (रण-दृष्टि)</span> • Assessment & Training Management System</div>
-      <div class="font-mono text-[11px]">Doctrinal Readiness Engine • Portals: Dual-Role • Local Host: 8000</div>
-    </div>
-  </footer>
-
-  <script>
-    const ATMS_STATE = {
-      activePortal: 'instructor',
-      activeInstructorTab: 'squads',
-      activeTraineeTab: 'assessment',
-      squad: {
-        name: 'Alfa Squadron',
-        cohortCode: 'YO-2026-TAC',
-        members: [
-          { id: 'cadet-1', serviceNo: 'IC-84920', name: 'Cadet Arjun Rawat', role: 'Squad Leader', status: 'Completed', mcqScore: '90%', timeTaken: '2m 14s', fieldStatus: 'Verified', grade: 'A+' },
-          { id: 'cadet-2', serviceNo: 'IC-84921', name: 'Cadet Devendra Singh', role: 'Scout / Recon', status: 'Not Started', mcqScore: '--', timeTaken: '--', fieldStatus: 'Pending', grade: '--' },
-          { id: 'cadet-3', serviceNo: 'IC-84922', name: 'Cadet Priya Nair', role: 'Signals Officer', status: 'In Progress', mcqScore: '--', timeTaken: '1m 40s', fieldStatus: 'Active', grade: 'In-Eval' },
-          { id: 'cadet-4', serviceNo: 'IC-84923', name: 'Cadet Manpreet Gill', role: '2IC / Navigator', status: 'Completed', mcqScore: '80%', timeTaken: '2m 50s', fieldStatus: 'Verified', grade: 'A' },
-          { id: 'cadet-5', serviceNo: 'IC-84924', name: 'Cadet Rohit Deshmukh', role: 'Rifleman Support', status: 'Completed', mcqScore: '70%', timeTaken: '3m 10s', fieldStatus: 'Verified', grade: 'B+' },
-          { id: 'cadet-6', serviceNo: 'IC-84925', name: 'Cadet Ananya Verma', role: 'Medic / Triage', status: 'In Progress', mcqScore: '--', timeTaken: '1m 15s', fieldStatus: 'Active', grade: 'In-Eval' }
-        ]
-      },
-      parameters: { difficulty: 'Intermediate', timerMode: 'per-question', timerSeconds: 60, passingThreshold: 75 },
-      questions: [
-        {
-          id: 1, domain: 'TACTICAL AMBUSH & DEFENSE', difficulty: 'Intermediate',
-          prompt: 'While conducting a daylight reconnaissance patrol through undulating scrub terrain, your lead scout reports enemy infantry movement at Grid 482-914, approximately 350 meters ahead, with visual indication of an unspotted machine gun emplacement. What is your immediate tactical drill?',
-          options: {
-            A: 'Halt, take immediate cover, order rifle squad to freeze in place, and signal 2IC to initiate simultaneous fire and movement without artillery check.',
-            B: 'Direct immediate tactical bounds backward, pop smoke grenade, and establish an ad-hoc defensive perimeter in dead ground to confirm enemy disposition.',
-            C: 'RTI (Return Immediate Fire) drill: Direct heavy suppressive fire onto bunker line while calling company command for airstrike clearance.',
-            D: 'Order immediate frontal charge using close-quarter battle drills to overwhelm the enemy before they establish interlocking arcs.'
-          },
-          correct: 'B',
-          explanation: 'Standard doctrine dictates that an uncommitted patrol encountering a superior fixed weapon must avoid entering the enemy kill zone. Falling back to dead ground with smoke screen provides reconnaissance confirmation.'
-        },
-        {
-          id: 2, domain: 'CBRN & CHEMICAL WARFARE', difficulty: 'Basic',
-          prompt: 'During an advance toward an objective, your chemical reconnaissance paper (3-way detector) turns blue-green, and troops report the scent of freshly cut hay. Which agent is present and what is your immediate command?',
-          options: {
-            A: 'Nerve Agent (VX); order immediate autoinjector Atropine administration.',
-            B: 'Blister Agent (Mustard Gas); order immediate Full IPE de-contamination.',
-            C: 'Choking Agent (Phosgene); order Immediate Masking and move to high ground upwind.',
-            D: 'Blood Agent (Cyanogen Chloride); order rapid sprint downwind.'
-          },
-          correct: 'C',
-          explanation: 'Freshly cut hay is the classic diagnostic signature of Phosgene (CG), a lethal pulmonary choking agent. Troops must mask within 9 seconds and evacuate upwind.'
-        },
-        {
-          id: 3, domain: 'SIGNALS & ELECTRONIC WARFARE', difficulty: 'Intermediate',
-          prompt: 'Your VHF tactical radio net encounters heavy intermittent electronic jamming (screech tones and artificial static) during battalion assault synchronization. Which SOP action takes precedence?',
-          options: {
-            A: 'Increase transmitter power output to maximum wattage and repeat unencrypted message.',
-            B: 'Switch immediately to pre-designated alternate frequencies (Frequency Hopping / PACE plan) and employ terrain shielding.',
-            C: 'Abandon radio communication and rely solely on hand signals over a 3-kilometer battle front.',
-            D: 'Break radio silence on emergency guard channel (243.0 MHz).'
-          },
-          correct: 'B',
-          explanation: 'Increasing power merely alerts enemy Direction Finding (DF) units. Doctrine mandates transition to alternate PACE frequency behind terrain masking.'
-        },
-        {
-          id: 4, domain: 'COMBAT LOGISTICS & CASEVAC', difficulty: 'Advanced',
-          prompt: 'A team member sustains a blast injury with severe arterial bleeding in the femoral region under active sniper fire. Triage protocol mandates which immediate sequence of care?',
-          options: {
-            A: 'Care Under Fire (CUF): Direct member to self-apply tourniquet or suppress threat before performing interventions; move casualty to cover.',
-            B: 'Tactical Field Care (TFC): Lay casualty flat, perform abdominal check, and pack wound with non-hemostatic gauze.',
-            C: 'Call immediate MEDEVAC helicopter directly into the active fire zone without clearing landing zone security.',
-            D: 'Administer oral fluids and morphine immediately while under active enemy sightlines.'
-          },
-          correct: 'A',
-          explanation: 'Under TCCC Care Under Fire guidelines, fire superiority is paramount. Apply tourniquet only if feasible, or suppress shooter before patient packaging.'
-        },
-        {
-          id: 5, domain: 'MAP READING & NIGHT AZIMUTH', difficulty: 'Basic',
-          prompt: 'When converting a Grid Bearing of 142° to a Magnetic Bearing in a theater with an Easterly Magnetic Declination of 3° 30\', the calculated Magnetic Bearing to set on your prismatic compass is:',
-          options: { A: '145° 30\'', B: '138° 30\'', C: '142° 00\'', D: '140° 15\'' },
-          correct: 'B',
-          explanation: 'Grid to Magnetic with Easterly variation: Magnetic Bearing = Grid Bearing - Magnetic Variation. 142° - 3° 30\' = 138° 30\'.'
-        }
-      ],
-      fieldTasks: [
-        {
-          id: 'ft-1',
-          title: 'Ex-Night Azimuth Navigation Drill',
-          objective: '5 km tactical compass navigation through scrub terrain carrying 15 kg combat battle load. Zero white-light signature.',
-          targetGrid: 'GRID 482-914', mode: 'Multi-User', timeLimit: 45, status: 'Active',
-          submissions: [
-            { traineeName: 'Cadet Arjun Rawat (IC-84920)', timeLogged: '34 mins', grid: '482-914', notes: 'Checkpoints Alpha and Bravo logged via GPS. Team gear 100% intact.', status: 'Verified' },
-            { traineeName: 'Cadet Manpreet Gill (IC-84923)', timeLogged: '38 mins', grid: '482-914', notes: 'Navigated dead ground route. Radio check completed.', status: 'Verified' }
-          ]
-        },
-        {
-          id: 'ft-2',
-          title: 'VHF Antenna Rigging & Crypto Code Drill',
-          objective: 'Erect field mast antenna and establish secure cipher link within 8 minutes under simulated electronic fog.',
-          targetGrid: 'GRID 510-822', mode: 'Single-User', timeLimit: 15, status: 'Active',
-          submissions: [
-            { traineeName: 'Cadet Priya Nair (IC-84922)', timeLogged: '06m 20s', grid: '510-822', notes: 'Frequency hopping established. Signal strength 5/5.', status: 'Verified' }
-          ]
-        }
-      ],
-      currentQuestionIdx: 0,
-      userAnswers: {},
-      examTimerRemaining: 60,
-      examTimerInterval: null,
-      selectedTraineeId: 'cadet-1'
-    };
-
-    document.addEventListener('DOMContentLoaded', () => {
-      lucide.createIcons();
-      renderSquadRoster();
-      renderQuestionBank();
-      renderFieldTasks();
-      renderTraineeTaskList();
-      loadTraineeQuestion(0);
-      startExamTimer();
-    });
-
-    function switchPortal(portal) {
-      ATMS_STATE.activePortal = portal;
-      const instView = document.getElementById('view-instructor');
-      const trView = document.getElementById('view-trainee');
-      const btnInst = document.getElementById('btn-portal-instructor');
-      const btnTr = document.getElementById('btn-portal-trainee');
-      const userDisplay = document.getElementById('user-display-name');
-      const userSub = document.getElementById('user-display-sub');
-      const userAvatar = document.getElementById('user-avatar-initials');
-
-      if (portal === 'instructor') {
-        instView.classList.remove('hidden');
-        trView.classList.add('hidden');
-        btnInst.className = 'px-3 py-1.5 rounded-md text-xs font-semibold transition flex items-center space-x-1.5 bg-white text-slate-900 shadow-sm border border-slate-200';
-        btnTr.className = 'px-3 py-1.5 rounded-md text-xs font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900';
-        userDisplay.innerHTML = '<span>Maj. Vikram Rathore, SM</span><span class="text-[10px] bg-slate-200 text-slate-800 px-1.5 py-0.2 rounded font-mono font-normal">DS-TACTICAL</span>';
-        userSub.innerText = 'Corps of Signals / Directing Staff • Session: RBAC-SECURE';
-        userAvatar.innerText = 'VR';
-      } else {
-        instView.classList.add('hidden');
-        trView.classList.remove('hidden');
-        btnTr.className = 'px-3 py-1.5 rounded-md text-xs font-semibold transition flex items-center space-x-1.5 bg-white text-slate-900 shadow-sm border border-slate-200';
-        btnInst.className = 'px-3 py-1.5 rounded-md text-xs font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900';
-        const curr = ATMS_STATE.squad.members.find(m => m.id === ATMS_STATE.selectedTraineeId) || ATMS_STATE.squad.members[0];
-        userDisplay.innerHTML = `<span>${curr.name}</span><span class="text-[10px] bg-blue-100 text-blue-800 px-1.5 py-0.2 rounded font-mono font-normal">${curr.serviceNo}</span>`;
-        userSub.innerText = `Alfa Squad • Role: ${curr.role} • Assessment Mode`;
-        userAvatar.innerText = curr.name.split(' ').map(n=>n[0]).slice(-2).join('');
-      }
-      lucide.createIcons();
-    }
-
-    function switchInstructorTab(tab) {
-      ATMS_STATE.activeInstructorTab = tab;
-      ['squads', 'engine', 'fieldtasks', 'reports'].forEach(t => {
-        const el = document.getElementById(`inst-tab-${t}`);
-        const btn = document.getElementById(`tab-inst-${t}`);
-        if (t === tab) {
-          el.classList.remove('hidden');
-          btn.className = 'pb-3 border-b-2 border-slate-900 text-slate-900 flex items-center space-x-2';
-        } else {
-          el.classList.add('hidden');
-          btn.className = 'pb-3 border-b-2 border-transparent text-slate-500 hover:text-slate-900 flex items-center space-x-2';
-        }
-      });
-      lucide.createIcons();
-    }
-
-    function switchTraineeTab(tab) {
-      ATMS_STATE.activeTraineeTab = tab;
-      ['assessment', 'fieldtask', 'dossier'].forEach(t => {
-        const el = document.getElementById(`tr-tab-${t}`);
-        const btn = document.getElementById(`tab-tr-${t}`);
-        if (t === tab) {
-          el.classList.remove('hidden');
-          btn.className = 'pb-3 border-b-2 border-slate-900 text-slate-900 flex items-center space-x-2';
-        } else {
-          el.classList.add('hidden');
-          btn.className = 'pb-3 border-b-2 border-transparent text-slate-500 hover:text-slate-900 flex items-center space-x-2';
-        }
-      });
-      lucide.createIcons();
-    }
-
-    function renderSquadRoster() {
-      const tbody = document.getElementById('squad-roster-tbody');
-      tbody.innerHTML = '';
-      let compCount = 0, inProgCount = 0, notStartCount = 0;
-
-      ATMS_STATE.squad.members.forEach((m, idx) => {
-        if (m.status === 'Completed') compCount++;
-        else if (m.status === 'In Progress') inProgCount++;
-        else notStartCount++;
-
-        let statusBadge = m.status === 'Completed' ?
-          '<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-100 text-emerald-800"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>Completed</span>' :
-          (m.status === 'In Progress' ?
-            '<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-100 text-amber-800"><span class="w-1.5 h-1.5 rounded-full bg-amber-500 mr-1.5 animate-pulse"></span>In Progress</span>' :
-            '<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-600"><span class="w-1.5 h-1.5 rounded-full bg-slate-400 mr-1.5"></span>Not Started</span>');
-
-        const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-50 transition border-b border-slate-100';
-        tr.innerHTML = `
-          <td class="py-3 px-4 font-mono text-slate-400">${idx + 1}</td>
-          <td class="py-3 px-4 font-medium text-slate-900">
-            <div class="font-bold">${m.name}</div>
-            <div class="text-[11px] font-mono text-slate-500">${m.serviceNo}</div>
-          </td>
-          <td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-xs font-mono">${m.role}</span></td>
-          <td class="py-3 px-4">${statusBadge}</td>
-          <td class="py-3 px-4 font-mono font-bold text-slate-800">${m.mcqScore}</td>
-          <td class="py-3 px-4 text-xs font-mono">
-            ${m.fieldStatus === 'Verified' ? '<span class="text-emerald-700 font-bold">✓ Verified</span>' : (m.fieldStatus === 'Active' ? '<span class="text-amber-600 font-bold">⟳ Active</span>' : '<span class="text-slate-400">Pending</span>')}
-          </td>
-          <td class="py-3 px-4 text-right">
-            <button onclick="simulateToggleMemberStatus('${m.id}')" class="text-xs text-blue-600 hover:text-blue-800 font-medium underline">Toggle Status</button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-
-      document.getElementById('stat-completed-count').innerText = compCount;
-      document.getElementById('stat-inprogress-count').innerText = inProgCount;
-      document.getElementById('stat-notstarted-count').innerText = notStartCount;
-    }
-
-    function simulateToggleMemberStatus(id) {
-      const m = ATMS_STATE.squad.members.find(x => x.id === id);
-      if (!m) return;
-      if (m.status === 'Not Started') { m.status = 'In Progress'; m.fieldStatus = 'Active'; }
-      else if (m.status === 'In Progress') { m.status = 'Completed'; m.mcqScore = '80%'; m.timeTaken = '2m 30s'; m.fieldStatus = 'Verified'; m.grade = 'A'; }
-      else { m.status = 'Not Started'; m.mcqScore = '--'; m.fieldStatus = 'Pending'; m.grade = '--'; }
-      renderSquadRoster();
-    }
-
-    function resetSquadDemoData() {
-      ATMS_STATE.squad.members[0].status = 'Completed';
-      ATMS_STATE.squad.members[1].status = 'Not Started';
-      ATMS_STATE.squad.members[2].status = 'In Progress';
-      ATMS_STATE.squad.members[3].status = 'Completed';
-      ATMS_STATE.squad.members[4].status = 'Completed';
-      ATMS_STATE.squad.members[5].status = 'In Progress';
-      renderSquadRoster();
-    }
-
-    function renderQuestionBank() {
-      const container = document.getElementById('question-bank-container');
-      container.innerHTML = '';
-      document.getElementById('badge-question-count').innerText = `${ATMS_STATE.questions.length} Questions Loaded`;
-
-      ATMS_STATE.questions.forEach((q, idx) => {
-        const card = document.createElement('div');
-        card.className = 'p-4 rounded-lg border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-sm transition space-y-2';
-        card.innerHTML = `
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-              <span class="px-2 py-0.5 rounded font-mono font-bold text-xs bg-slate-200 text-slate-800">Q${idx + 1}</span>
-              <span class="text-xs font-mono font-semibold text-blue-700">${q.domain}</span>
-            </div>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-200 text-slate-700 font-bold">${q.difficulty}</span>
-          </div>
-          <p class="text-xs font-medium text-slate-900 leading-snug">${q.prompt}</p>
-          <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 pt-1 font-mono">
-            <div><strong class="text-slate-800">A:</strong> ${q.options.A.substring(0, 42)}...</div>
-            <div><strong class="text-slate-800">B:</strong> ${q.options.B.substring(0, 42)}...</div>
-            <div><strong class="text-slate-800">C:</strong> ${q.options.C.substring(0, 42)}...</div>
-            <div><strong class="text-slate-800">D:</strong> ${q.options.D.substring(0, 42)}...</div>
-          </div>
-          <div class="flex items-center justify-between pt-1 border-t border-slate-200 text-[11px]">
-            <span class="text-emerald-700 font-mono font-bold">Correct Key: Option ${q.correct}</span>
-            <button onclick="removeQuestion(${q.id})" class="text-red-600 hover:text-red-800 font-medium">Remove</button>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function removeQuestion(id) {
-      if (ATMS_STATE.questions.length <= 1) { alert("At least 1 question must remain in the active assessment."); return; }
-      ATMS_STATE.questions = ATMS_STATE.questions.filter(q => q.id !== id);
-      renderQuestionBank();
-      loadTraineeQuestion(0);
-    }
-
-    function triggerDynamicGeneration() {
-      const diff = document.getElementById('param-difficulty').value;
-      const topic = document.getElementById('param-topic').value;
-      const feedback = document.getElementById('gen-feedback-msg');
-      feedback.classList.remove('hidden');
-      feedback.innerText = 'Synthesizing tactical dilemma via Doctrine Engine...';
-
-      setTimeout(() => {
-        const freshQ = {
-          id: Date.now(),
-          domain: topic === 'cbrn' ? 'CBRN & CHEMICAL WARFARE' : (topic === 'signals' ? 'ELECTRONIC WARFARE' : 'TACTICAL DEFENSE & RETALIATION'),
-          difficulty: diff,
-          prompt: `[Dynamic ${diff}] During a battalion breakthrough, thermal sensors indicate an armored platoon advancing with drone overhead cover at 800m. Your forward screen has only 3 wire-guided ATGMs remaining. What is your immediate doctrinal firing allocation?`,
-          options: {
-            A: 'Fire all 3 ATGMs simultaneously at the lead vehicle to create an immediate road blockade.',
-            B: 'Hold fire until the lead command tank reaches designated engagement kill-box (400m); engage with staggered single missiles.',
-            C: 'Discharge smoke mortars and withdraw the anti-tank detachment without engaging.',
-            D: 'Order riflemen to engage armor optics with small arms fire to distract crews.'
-          },
-          correct: 'B',
-          explanation: 'Conservation of high-value munitions dictates engaging command assets in pre-surveyed kill-boxes with shoot-and-scoot doctrine.'
-        };
-        ATMS_STATE.questions.push(freshQ);
-        renderQuestionBank();
-        feedback.innerText = `✓ Fresh ${diff} question successfully generated and added to Question Bank!`;
-        setTimeout(() => feedback.classList.add('hidden'), 4000);
-      }, 700);
-    }
-
-    function updateEngineParams() {
-      const mode = document.getElementById('param-timer-mode').value;
-      const secs = parseInt(document.getElementById('param-timer-seconds').value, 10);
-      ATMS_STATE.parameters.timerMode = mode;
-      ATMS_STATE.parameters.timerSeconds = secs;
-      const desc = document.getElementById('timer-mode-desc');
-      if (mode === 'per-question') {
-        desc.innerText = `Each individual question enforces a ${secs}-second operational deadline.`;
-      } else {
-        desc.innerText = `Total test session capped at ${Math.round(secs/60)} minutes overall countdown.`;
-      }
-    }
-
-    function openAuthorModal() { document.getElementById('modal-author-question').classList.remove('hidden'); }
-    function closeAuthorModal() { document.getElementById('modal-author-question').classList.add('hidden'); }
-    function saveAuthoredQuestion() {
-      const prompt = document.getElementById('author-prompt').value.trim();
-      const domain = document.getElementById('author-domain').value.trim();
-      const diff = document.getElementById('author-difficulty').value;
-      const optA = document.getElementById('author-opt-a').value.trim();
-      const optB = document.getElementById('author-opt-b').value.trim();
-      const optC = document.getElementById('author-opt-c').value.trim();
-      const optD = document.getElementById('author-opt-d').value.trim();
-      const correct = document.getElementById('author-correct').value;
-      const explanation = document.getElementById('author-explanation').value.trim();
-
-      if (!prompt || !optA || !optB || !optC || !optD) {
-        alert("Please complete the question prompt and all four options (A, B, C, D).");
-        return;
-      }
-      ATMS_STATE.questions.push({
-        id: Date.now(), domain: domain || 'TACTICAL SCENARIO', difficulty: diff, prompt: prompt,
-        options: { A: optA, B: optB, C: optC, D: optD }, correct: correct, explanation: explanation || 'Instructor verified doctrine.'
-      });
-      renderQuestionBank();
-      closeAuthorModal();
-      alert("Custom Question authored and added to assessment bank!");
-    }
-
-    function addSquadMemberModal() { document.getElementById('modal-add-member').classList.remove('hidden'); }
-    function closeAddMemberModal() { document.getElementById('modal-add-member').classList.add('hidden'); }
-    function saveNewSquadMember() {
-      const sNo = document.getElementById('member-service-no').value.trim();
-      const name = document.getElementById('member-name').value.trim();
-      const role = document.getElementById('member-role').value;
-      if (!sNo || !name) return;
-      ATMS_STATE.squad.members.push({
-        id: 'cadet-' + (ATMS_STATE.squad.members.length + 1), serviceNo: sNo, name: name, role: role,
-        status: 'Not Started', mcqScore: '--', timeTaken: '--', fieldStatus: 'Pending', grade: '--'
-      });
-      renderSquadRoster();
-      closeAddMemberModal();
-    }
-
-    function renderFieldTasks() {
-      const grid = document.getElementById('dispatched-tasks-grid');
-      const subTbody = document.getElementById('field-submissions-tbody');
-      grid.innerHTML = '';
-      subTbody.innerHTML = '';
-
-      ATMS_STATE.fieldTasks.forEach(t => {
-        const card = document.createElement('div');
-        card.className = 'p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-2';
-        card.innerHTML = `
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">${t.mode}</span>
-            <span class="text-xs font-mono text-slate-500">${t.targetGrid}</span>
-          </div>
-          <h4 class="font-bold text-slate-900 text-sm">${t.title}</h4>
-          <p class="text-xs text-slate-600">${t.objective}</p>
-          <div class="flex items-center justify-between pt-2 border-t border-slate-200 text-xs font-mono">
-            <span class="text-slate-500">Time Limit: ${t.timeLimit} mins</span>
-            <span class="text-emerald-700 font-bold">${t.submissions.length} Submissions Logged</span>
-          </div>
-        `;
-        grid.appendChild(card);
-
-        t.submissions.forEach(sub => {
-          const row = document.createElement('tr');
-          row.className = 'border-b border-slate-100 hover:bg-slate-50';
-          row.innerHTML = `
-            <td class="py-2.5 px-3 font-semibold text-slate-900">${sub.traineeName}</td>
-            <td class="py-2.5 px-3">${t.title}</td>
-            <td class="py-2.5 px-3 font-mono text-slate-600">${sub.grid}</td>
-            <td class="py-2.5 px-3 font-mono font-bold">${sub.timeLogged}</td>
-            <td class="py-2.5 px-3 text-slate-600">${sub.notes}</td>
-            <td class="py-2.5 px-3 font-mono font-bold text-emerald-700">✓ ${sub.status}</td>
-            <td class="py-2.5 px-3 text-right"><span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-mono font-bold">APPROVED</span></td>
-          `;
-          subTbody.appendChild(row);
-        });
-      });
-    }
-
-    function openDispatchTaskModal() { document.getElementById('modal-dispatch-task').classList.remove('hidden'); }
-    function closeDispatchTaskModal() { document.getElementById('modal-dispatch-task').classList.add('hidden'); }
-    function confirmDispatchTask() {
-      const title = document.getElementById('dispatch-title').value.trim();
-      const obj = document.getElementById('dispatch-objective').value.trim();
-      const grid = document.getElementById('dispatch-grid').value.trim();
-      const mode = document.getElementById('dispatch-mode').value;
-      const time = parseInt(document.getElementById('dispatch-time').value, 10);
-      if (!title || !obj) { alert("Please specify task title and objectives."); return; }
-
-      ATMS_STATE.fieldTasks.unshift({
-        id: 'ft-' + Date.now(), title: title, objective: obj, targetGrid: grid || 'GRID 480-920',
-        mode: mode, timeLimit: time || 30, status: 'Active', submissions: []
-      });
-      renderFieldTasks();
-      renderTraineeTaskList();
-      closeDispatchTaskModal();
-      alert(`Exercise '${title}' dispatched to squad trainees!`);
-    }
-
-    function loadTraineeQuestion(idx) {
-      if (idx < 0 || idx >= ATMS_STATE.questions.length) return;
-      ATMS_STATE.currentQuestionIdx = idx;
-      const q = ATMS_STATE.questions[idx];
-
-      document.getElementById('exam-q-number-badge').innerText = `QUESTION ${idx + 1} OF ${ATMS_STATE.questions.length}`;
-      document.getElementById('exam-q-domain-badge').innerText = q.domain;
-      document.getElementById('exam-difficulty-badge').innerText = `DIFFICULTY: ${q.difficulty.toUpperCase()}`;
-      document.getElementById('exam-q-prompt').innerText = q.prompt;
-      document.getElementById('exam-progress-bar').style.width = `${((idx + 1) / ATMS_STATE.questions.length) * 100}%`;
-
-      const container = document.getElementById('exam-options-container');
-      container.innerHTML = '';
-      ['A', 'B', 'C', 'D'].forEach(letter => {
-        const text = q.options[letter];
-        const isChecked = ATMS_STATE.userAnswers[idx] === letter;
-        const label = document.createElement('label');
-        label.className = `option-tile flex items-start p-4 rounded-xl border-2 cursor-pointer transition select-none ${isChecked ? 'border-slate-900 bg-slate-100 shadow-sm' : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50'}`;
-        label.innerHTML = `
-          <input type="radio" name="mcq_answer" value="${letter}" ${isChecked ? 'checked' : ''} onchange="selectTraineeAnswer('${letter}')" class="mt-1 h-4 w-4 text-slate-900 border-slate-300 focus:ring-slate-900">
-          <div class="ml-3">
-            <span class="inline-block font-mono font-bold text-xs ${isChecked ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-800'} border border-slate-300 px-2 py-0.5 rounded mr-2">${letter}</span>
-            <span class="text-sm font-medium text-slate-800">${text}</span>
-          </div>
-        `;
-        container.appendChild(label);
-      });
-
-      document.getElementById('btn-exam-prev').disabled = (idx === 0);
-      if (idx === ATMS_STATE.questions.length - 1) {
-        document.getElementById('btn-exam-next').classList.add('hidden');
-        document.getElementById('btn-exam-submit').classList.remove('hidden');
-      } else {
-        document.getElementById('btn-exam-next').classList.remove('hidden');
-        document.getElementById('btn-exam-submit').classList.add('hidden');
-      }
-
-      ATMS_STATE.examTimerRemaining = ATMS_STATE.parameters.timerSeconds;
-      updateTimerDisplay();
-      lucide.createIcons();
-    }
-
-    function selectTraineeAnswer(letter) {
-      ATMS_STATE.userAnswers[ATMS_STATE.currentQuestionIdx] = letter;
-      loadTraineeQuestion(ATMS_STATE.currentQuestionIdx);
-    }
-
-    function navigateExamQuestion(delta) {
-      const next = ATMS_STATE.currentQuestionIdx + delta;
-      if (next >= 0 && next < ATMS_STATE.questions.length) loadTraineeQuestion(next);
-    }
-
-    function startExamTimer() {
-      if (ATMS_STATE.examTimerInterval) clearInterval(ATMS_STATE.examTimerInterval);
-      ATMS_STATE.examTimerInterval = setInterval(() => {
-        if (ATMS_STATE.examTimerRemaining > 0) {
-          ATMS_STATE.examTimerRemaining--;
-          updateTimerDisplay();
-        } else {
-          if (ATMS_STATE.currentQuestionIdx < ATMS_STATE.questions.length - 1) navigateExamQuestion(1);
-          else submitExamAssessment();
-        }
-      }, 1000);
-    }
-
-    function updateTimerDisplay() {
-      const mins = Math.floor(ATMS_STATE.examTimerRemaining / 60);
-      const secs = ATMS_STATE.examTimerRemaining % 60;
-      const disp = document.getElementById('exam-timer-display');
-      if (disp) {
-        disp.innerText = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-        disp.className = ATMS_STATE.examTimerRemaining <= 10 ? 'text-lg font-mono font-bold text-red-400 animate-pulse tracking-wider' : 'text-lg font-mono font-bold text-white tracking-wider';
-      }
-    }
-
-    function submitExamAssessment() {
-      clearInterval(ATMS_STATE.examTimerInterval);
-      let correctCount = 0;
-      ATMS_STATE.questions.forEach((q, idx) => {
-        if (ATMS_STATE.userAnswers[idx] === q.correct) correctCount++;
-      });
-      const total = ATMS_STATE.questions.length;
-      const pct = Math.round((correctCount / total) * 100);
-
-      document.getElementById('final-score-display').innerText = `${correctCount} / ${total} (${pct}%)`;
-      document.getElementById('final-time-display').innerText = `2m 14s`;
-      document.getElementById('exam-body-container').classList.add('hidden');
-      document.getElementById('exam-completed-view').classList.remove('hidden');
-
-      const curr = ATMS_STATE.squad.members.find(m => m.id === ATMS_STATE.selectedTraineeId);
-      if (curr) {
-        curr.status = 'Completed';
-        curr.mcqScore = `${pct}%`;
-        curr.grade = pct >= 80 ? 'A' : (pct >= 60 ? 'B' : 'C');
-        renderSquadRoster();
-      }
-    }
-
-    function retakeAssessmentDemo() {
-      ATMS_STATE.userAnswers = {};
-      document.getElementById('exam-body-container').classList.remove('hidden');
-      document.getElementById('exam-completed-view').classList.add('hidden');
-      loadTraineeQuestion(0);
-      startExamTimer();
-    }
-
-    function onTraineePersonaChange() {
-      const val = document.getElementById('select-trainee-persona').value;
-      ATMS_STATE.selectedTraineeId = val;
-      const curr = ATMS_STATE.squad.members.find(m => m.id === val);
-      if (curr) document.getElementById('trainee-welcome-title').innerText = `${curr.name} (${curr.serviceNo})`;
-      switchPortal('trainee');
-    }
-
-    function renderTraineeTaskList() {
-      const list = document.getElementById('trainee-tasks-list');
-      const detail = document.getElementById('trainee-active-task-detail');
-      if (!list || !detail) return;
-      list.innerHTML = '';
-      if (ATMS_STATE.fieldTasks.length === 0) return;
-
-      const activeTask = ATMS_STATE.fieldTasks[0];
-      ATMS_STATE.fieldTasks.forEach((t, i) => {
-        const item = document.createElement('div');
-        item.className = `p-3 rounded-lg border cursor-pointer transition ${i === 0 ? 'bg-slate-900 text-white border-slate-900' : 'bg-slate-50 text-slate-800 border-slate-200 hover:bg-slate-100'}`;
-        item.innerHTML = `
-          <div class="text-[10px] font-mono uppercase ${i === 0 ? 'text-amber-400' : 'text-slate-500'}">${t.mode} • ${t.targetGrid}</div>
-          <div class="text-xs font-bold mt-0.5">${t.title}</div>
-        `;
-        list.appendChild(item);
-      });
-
-      detail.innerHTML = `
-        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
-          <div>
-            <span class="text-xs font-mono font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded">ASSIGNED FIELD EXERCISE</span>
-            <h3 class="text-base font-bold text-slate-900 mt-1">${activeTask.title}</h3>
-          </div>
-          <div class="text-right font-mono text-xs">
-            <span class="text-slate-500">Target Grid:</span>
-            <span class="font-bold text-slate-900 ml-1">${activeTask.targetGrid}</span>
-          </div>
-        </div>
-        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 text-xs text-slate-700 space-y-1">
-          <strong class="text-slate-900">Task Objective & Directives:</strong>
-          <p>${activeTask.objective}</p>
-        </div>
-        <div class="space-y-4 pt-2">
-          <h4 class="text-xs font-bold text-slate-900 uppercase font-mono">Submit Field Completion SITREP</h4>
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="block text-[11px] font-bold text-slate-700 mb-1">ACTUAL COMPLETION TIME (MINS)</label>
-              <input type="number" id="tr-submit-time" value="34" class="w-full text-xs bg-slate-50 border border-slate-300 rounded p-2 font-mono font-bold">
-            </div>
-            <div>
-              <label class="block text-[11px] font-bold text-slate-700 mb-1">VERIFIED GPS / MAP GRID REACHED</label>
-              <input type="text" id="tr-submit-grid" value="${activeTask.targetGrid}" class="w-full text-xs bg-slate-50 border border-slate-300 rounded p-2 font-mono font-bold">
-            </div>
-          </div>
-          <div>
-            <label class="block text-[11px] font-bold text-slate-700 mb-1">OBSERVATIONAL REPORT & CHECKLIST NOTES</label>
-            <textarea id="tr-submit-notes" rows="2.5" class="w-full text-xs bg-slate-50 border border-slate-300 rounded p-2" placeholder="e.g., Azimuth checkpoints 1 and 2 identified without detection. Gear operational."></textarea>
-          </div>
-          <button onclick="submitTraineeFieldSitrep()" class="w-full py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs rounded-lg shadow-sm flex items-center justify-center space-x-2 transition">
-            <i data-lucide="check" class="w-4 h-4"></i>
-            <span>Submit Verification SITREP to Directing Staff</span>
-          </button>
-        </div>
-      `;
-      lucide.createIcons();
-    }
-
-    function submitTraineeFieldSitrep() {
-      const time = document.getElementById('tr-submit-time').value;
-      const grid = document.getElementById('tr-submit-grid').value;
-      const notes = document.getElementById('tr-submit-notes').value.trim() || 'Tactical waypoints successfully traversed. Zero white light violation.';
-      const curr = ATMS_STATE.squad.members.find(m => m.id === ATMS_STATE.selectedTraineeId);
-      const activeTask = ATMS_STATE.fieldTasks[0];
-
-      activeTask.submissions.unshift({
-        traineeName: `${curr.name} (${curr.serviceNo})`, timeLogged: `${time} mins`, grid: grid, notes: notes, status: 'Verified'
-      });
-      curr.fieldStatus = 'Verified';
-      renderSquadRoster();
-      renderFieldTasks();
-      alert("Field SITREP submitted! Directing Staff console updated in real-time.");
-    }
-
-    function toggleArchModal(open) {
-      const modal = document.getElementById('modal-architecture');
-      if (open) modal.classList.remove('hidden');
-      else modal.classList.add('hidden');
-    }
-
-    function previewOfficialReport() {
-      const report = document.getElementById('printable-pdf-report');
-      report.classList.remove('hidden');
-      const printTbody = document.getElementById('print-roster-tbody');
-      printTbody.innerHTML = '';
-      ATMS_STATE.squad.members.forEach((m, idx) => {
-        const tr = document.createElement('tr');
-        tr.className = 'border-b border-slate-300';
-        tr.innerHTML = `
-          <td class="p-2 border-r border-slate-300">${idx + 1}</td>
-          <td class="p-2 border-r border-slate-300 font-bold">${m.serviceNo} - ${m.name}</td>
-          <td class="p-2 border-r border-slate-300">${m.role}</td>
-          <td class="p-2 border-r border-slate-300 font-bold">${m.mcqScore}</td>
-          <td class="p-2 border-r border-slate-300">${m.timeTaken}</td>
-          <td class="p-2 border-r border-slate-300">${m.fieldStatus}</td>
-          <td class="p-2 font-bold">${m.grade}</td>
-        `;
-        printTbody.appendChild(tr);
-      });
-      report.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function closeOfficialReportPreview() {
-      document.getElementById('printable-pdf-report').classList.add('hidden');
-    }
-  </script>
+  <script src="app.js"></script>
 </body>
 </html>
