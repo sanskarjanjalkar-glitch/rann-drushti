@@ -1,103 +1,71 @@
-# 🎯 RANN-DRUSHTI (रण-दृष्टि)
-### Multi-Domain Decision Training Platform
-**SIH Problem Statement: 26248** | *Cognitive Stress & Asymmetric Warfare Decision Simulator*
+# 🎯 RANN-DRUSHTI (रण-दृष्टि) — Assessment & Training Management System (ATMS)
+### Dual-Role Command & Cadet Evaluation Console for Defence Officers
+**SIH Problem Statement: 26248** | *Tactical Decision Training, Squad Assessment & Field Verification Engine*
 
 ---
 
-## ⚡ Live Web Deployment
-🌐 **Live Interactive Application:** [https://sanskarjanjalkar-glitch.github.io/rann-drushti/](https://sanskarjanjalkar-glitch.github.io/rann-drushti/)
+## 🏛️ System Overview
+
+**RANN-DRUSHTI** is a dual-portal Assessment and Training Management System purpose-built for the Armed Forces (Directing Staff, Instructors, and Officer Trainees/Cadets). Built with a clean military institutional aesthetic (slate/white light theme, high-contrast typography, and strict NATO/ARTRAC terminology), it bridges theoretical tactical doctrine with off-platform physical exercises.
 
 ---
 
-## 🏛️ Executive Overview
+## 🎖️ Core System Capabilities
 
-Traditional military tactical trainers (e.g., Bohemia VBS, JCATS, standard TEWTs) rely on **scripted, deterministic scenarios** that evaluate procedural outcomes under ideal or static conditions.
+### 1. Dual-Role Authentication & Access Control (RBAC)
+- **Instructor / Inspector Portal (Directing Staff):**
+  - Full administrative rights to create squad cohorts (standard 6-member teams).
+  - Dynamic & manual MCQ authoring studio.
+  - Parameter controls (tactical difficulty, per-question / per-session countdown timers).
+  - Field task dispatching and live trainee status monitoring.
+  - Comprehensive ARTRAC-compliant PDF report generation with signature/evaluation block.
+- **User / Trainee Portal (Cadet / Officer Trainee):**
+  - Live tactical assessment runner with active countdown timer.
+  - Distinct A, B, C, D MCQ tiles with instant feedback or exam submission mode.
+  - Off-platform field/physical task tracker with GPS waypoint verification and SITREP submission.
+  - Individual performance dossier and score breakdowns.
 
-**RANN-DRUSHTI (रण-दृष्टि)** is an indigenous defense-grade cognitive simulator engineered to train **command decision-making under severe cognitive stress, communication degradation, and contradictory intelligence**.
+### 2. Squad & Group Management (6-Man Teams)
+- Cohort tracking with live operational states:
+  - 🔴 **Not Started**: Pending login and briefing.
+  - 🟡 **In Progress**: Actively taking assessment or in field transit.
+  - 🟢 **Completed**: MCQ score locked, field SITREP verified.
+- Real-time squad cohesion metrics and accuracy averages.
+
+### 3. Assessment & Question Generation Engine
+- **Dynamic Question Generator**: Algorithmic generation across domains (Tactical Ambush & Defense, CBRN/NBC Warfare, Signals & Electronic Warfare, Combat Logistics & CASEVAC, Map Reading & Night Azimuth).
+- **Instructor Authoring Studio**: Manual drafting tool for custom MCQs with doctrinal explanation and tactical weighting.
+- **Parameter Controls**: Basic, Intermediate, and Advanced difficulty tiers with configurable countdown deadlines.
+
+### 4. Task & Field Assignment Module
+- Supports off-platform physical/combat tasks (e.g. 5km tactical compass march with 15kg CEG, antenna rigging under simulated EW jamming).
+- Trainees submit completion times, GPS grid coordinates, and observational SITREPs directly to Directing Staff queue.
+
+### 5. Reporting & High-Fidelity PDF Export
+- Formatted official military evaluation report preview.
+- Direct printable/PDF export (`window.print()` with `@media print` A4 optimization).
+- Group roster breakdown, individual scores, verified field SITREPs, and official instructor signature block.
 
 ---
 
-## 🗺️ Operational Architecture Flow
+## 🚀 Live Prototype Access
+
+- **GitHub Repository**: [https://github.com/sanskarjanjalkar-glitch/rann-drushti](https://github.com/sanskarjanjalkar-glitch/rann-drushti)
+- **GitHub Pages Live App**: [https://sanskarjanjalkar-glitch.github.io/rann-drushti/](https://sanskarjanjalkar-glitch.github.io/rann-drushti/)
+- **Local Development Server**: `http://localhost:8000`
+
+---
+
+## 📐 System Architecture & Relational Schema
 
 ```
-COMMAND-X / RANN-DRUSHTI
-        Decision Training Platform
-                      │
-          ┌───────────┴───────────┐
-          ↓                       ↓
-   UNCERTAINTY              TIME PRESSURE
- Delay • Dropout          Limited decision time
- Conflict • Fog                  │
-[01 | Uncertainty Engine] [07 | DPI Gauge]
-[06 | AI Event Director]         │
-          └───────────┬───────────┘
-                      ↓
-              🧠 DECISION MAKING
-                      ↓
-          ┌───────────┼───────────┐
-          ↓           ↓           ↓
-       INDIVIDUAL    TEAM       SYSTEM
-        Decision   Coordination  Readiness
-   [Option A/B/C]  [02 | Role   [03 | Info Reliability]
-                      Fog]
-          └───────────┼───────────┘
-                      ↓
-                AI EVALUATION
-                      ↓
-             ┌────────┴────────┐
-             ↓                 ↓
-       Decision DNA       What-If Replay
-   [04 | Commander DNA]   [05 | Counterfactual]
-   [08 | Process Score]        │
-             └────────┬────────┘
-                      ↓
-              ADAPTIVE TRAINING
-                      ↓
-           [09 | Retraining Loop]
-                      ↓
-        ┌─────────────┼─────────────┐
-        ↓             ↓             ↓
-   Better Skills   Faster Decisions  Higher Readiness
+Users (Instructors, Trainees)
+  ├── 1:N ── Squads (Alfa-6, Bravo-6 cohorts)
+  ├── 1:N ── Authored Questions & Test Parameters
+  └── 1:N ── Trainee Sessions (MCQ Scores, Time Velocity)
+               └── 1:N ── Question Responses (A, B, C, D)
+
+Field Tasks (Dispatched by Instructors)
+  └── 1:N ── Field Submissions (GPS Waypoints, Time, Verification Notes)
+               └── Evaluated by Directing Staff
 ```
-
----
-
-## 🔑 The 9 Key Innovations
-
-| # | Innovation | Operational Impact |
-|---|---|---|
-| **01** | **Adaptive Uncertainty Engine** | Dynamic information uncertainty and signal noise modulated in real time based on player competence. |
-| **02** | **Role-Based Information Fog** | Role-partitioned asymmetric COP (Platoon, Company, Signals/EW, Intel, Instructor) forcing team coordination. |
-| **03** | **Information Reliability Engine** | Real-time algorithmic reliability scoring ($\mathcal{R}_{info} = 0.0 - 1.0$) accounting for staleness, cross-checks, and EW jamming. |
-| **04** | **Commander Decision DNA** | Longitudinal multi-axis behavioral profiling (OODA latency, data appetite threshold, bias resistance, stress degradation). |
-| **05** | **What-If Decision Replay** | Branching counterfactual timeline scrubber powered by Monte Carlo projections to evaluate alternate outcomes. |
-| **06** | **AI Event Director** | Autonomous pacing orchestrator that injects unexpected tactical crises and contradictory intelligence. |
-| **07** | **Decision Pressure Index (DPI)** | Real-time mathematical quantification of operational stress and cognitive load. |
-| **08** | **Decision-Process Scoring** | Process-first evaluation matrix that decouples decision logic from stochastic outcome luck. |
-| **09** | **Adaptive Retraining Loop** | Closed-loop generator synthesizing vulnerability-targeted 5-minute micro-drills to remediate identified cognitive flaws. |
-
----
-
-## 💻 Tech Stack & Standards
-* **Interface**: Lightweight, high-performance HTML5, Tailwind CSS, Canvas API with zero heavy runtime dependencies.
-* **Architecture**: Fully offline-capable, air-gappable architecture for secure defense deployment.
-* **Symbology**: NATO Mil-STD standard tactical icons and MGRS grid coordinates.
-* **Hosting**: GitHub Pages static deployment.
-
----
-
-## 🛠️ Local Development & Deployment
-
-### Quick Local Run:
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/sanskarjanjalkar-glitch/rann-drushti.git
-   cd rann-drushti
-   ```
-2. Open in browser:
-   * Double-click `index.html`, OR
-   * Run with Python:
-     ```bash
-     python -m http.server 8000
-     ```
-   * Open `http://localhost:8000`
