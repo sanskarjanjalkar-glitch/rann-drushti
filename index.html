@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RANN-DRUSHTI (रण-दृष्टि) — Multi-Domain Decision Training Platform</title>
+  <title>RANN-DRUSHTI (रण-दृष्टि) — Officer Command & Decision Training Platform</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,17 +35,163 @@
 </head>
 <body class="antialiased min-h-screen text-slate-800 p-3 sm:p-5">
 
-  <!-- CLASSIFICATION STRIP -->
-  <div class="max-w-7xl mx-auto mb-3">
-    <div class="bg-slate-200/80 border border-slate-300 text-slate-600 text-[11px] font-mono font-semibold py-1 px-3 rounded flex justify-between items-center tracking-wider">
-      <span>PROJECT RANN-DRUSHTI (रण-दृष्टि) // COGNITIVE MULTI-DOMAIN C2 SUITE</span>
-      <span>SYSTEM STATUS: ACTIVE • ID: RD-26248</span>
+  <!-- ========================================== -->
+  <!-- 1. OFFICER AUTHENTICATION GATEWAY (LOGIN) -->
+  <!-- ========================================== -->
+  <div id="loginGateway" class="max-w-4xl mx-auto my-6 transition-all duration-300">
+
+    <!-- CLASSIFICATION STRIP -->
+    <div class="bg-slate-200/90 border border-slate-300 text-slate-700 text-[11px] font-mono font-semibold py-1.5 px-3 rounded flex justify-between items-center tracking-wider mb-4">
+      <span>RESTRICTED // ARMED FORCES SIMULATION & TRAINING DIVISION // OFFICIAL USE ONLY</span>
+      <span>NODE: HQ-TRG-01 // RD-26248</span>
+    </div>
+
+    <!-- LOGIN CARD -->
+    <div class="bg-white border border-slate-300 rounded-2xl shadow-sm overflow-hidden">
+      <!-- Top Crest & Header -->
+      <div class="bg-slate-900 text-white p-6 sm:p-8 flex flex-wrap items-center justify-between gap-4 border-b border-slate-800">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-xl bg-blue-700 border border-blue-500/40 flex items-center justify-center text-white font-mono font-bold text-xl shadow">
+            RD
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-xl font-bold tracking-tight">RANN-DRUSHTI <span class="text-slate-400 font-normal font-mono text-sm">(रण-दृष्टि)</span></h1>
+              <span class="text-[11px] px-2 py-0.5 rounded bg-blue-600/40 text-blue-200 font-mono border border-blue-500/40">SIH 26248</span>
+            </div>
+            <p class="text-xs text-slate-300 mt-0.5">Multi-Domain Tactical Decision & Cognitive Stress Training Suite</p>
+            <p class="text-[11px] text-slate-400 font-mono">ARMY WAR COLLEGE & FORMATION SIMULATION INTEGRATION</p>
+          </div>
+        </div>
+
+        <div class="text-right hidden sm:block">
+          <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">
+            SECURITY CLEARANCE: SECRET
+          </span>
+        </div>
+      </div>
+
+      <!-- Quick Presets for Evaluating Officers / Directing Staff -->
+      <div class="bg-slate-50 border-b border-slate-200 px-6 py-3.5">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="text-xs font-mono font-semibold text-slate-600 uppercase">
+            ⚡ Quick Officer Profile Select (Demo Profiles):
+          </span>
+          <div class="flex flex-wrap gap-2 text-xs">
+            <button onclick="fillOfficerProfile('IC-64821K', 'Major', 'Vikram Rana', '14 Corps / Trishul Strike', 'company')" class="px-2.5 py-1 rounded bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-medium transition shadow-xs">
+              Maj. V. Rana (Coy Cdr)
+            </button>
+            <button onclick="fillOfficerProfile('IC-71049X', 'Captain', 'Ananya Sen', 'Corps of Signals / 3 EW Bn', 'signals')" class="px-2.5 py-1 rounded bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-medium transition shadow-xs">
+              Capt. A. Sen (Signals / EW)
+            </button>
+            <button onclick="fillOfficerProfile('IC-69830M', 'Major', 'Rajesh Joshi', 'Directorate of Military Intelligence', 'intel')" class="px-2.5 py-1 rounded bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-medium transition shadow-xs">
+              Maj. R. Joshi (Intel G2)
+            </button>
+            <button onclick="fillOfficerProfile('IC-51204P', 'Colonel', 'R. S. Rathore', 'Directing Staff / War College', 'godview')" class="px-2.5 py-1 rounded bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200 font-medium transition shadow-xs">
+              Col. R. S. Rathore (DS / God-View)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Login Form Body -->
+      <form onsubmit="handleOfficerLogin(event)" class="p-6 sm:p-8 space-y-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+          <!-- Service Number -->
+          <div>
+            <label class="block text-xs font-mono font-semibold text-slate-700 uppercase mb-1.5">
+              Service Number (Army No.)
+            </label>
+            <input type="text" id="officerServiceNo" required value="IC-64821K" class="w-full px-3 py-2 text-xs font-mono rounded-lg border border-slate-300 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+            <span class="text-[11px] text-slate-400 font-mono">e.g. IC-64821K, SS-42109X</span>
+          </div>
+
+          <!-- Rank -->
+          <div>
+            <label class="block text-xs font-mono font-semibold text-slate-700 uppercase mb-1.5">
+              Rank
+            </label>
+            <select id="officerRank" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent font-medium">
+              <option value="Captain">Captain (Capt.)</option>
+              <option value="Major" selected>Major (Maj.)</option>
+              <option value="Lt Colonel">Lieutenant Colonel (Lt Col.)</option>
+              <option value="Colonel">Colonel (Col.)</option>
+              <option value="Brigadier">Brigadier (Brig.)</option>
+            </select>
+          </div>
+
+          <!-- Officer Name -->
+          <div>
+            <label class="block text-xs font-mono font-semibold text-slate-700 uppercase mb-1.5">
+              Officer Name
+            </label>
+            <input type="text" id="officerName" required value="Vikram Rana" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent font-medium">
+          </div>
+
+          <!-- Unit / Formation -->
+          <div>
+            <label class="block text-xs font-mono font-semibold text-slate-700 uppercase mb-1.5">
+              Unit / Formation / Regiment
+            </label>
+            <input type="text" id="officerFormation" required value="14 Corps / Trishul Strike Division" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent font-medium">
+          </div>
+
+          <!-- Operational Assignment Role -->
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-mono font-semibold text-slate-700 uppercase mb-1.5">
+              Operational Assignment (Primary Training Echelon)
+            </label>
+            <select id="officerAssignmentRole" class="w-full px-3 py-2 text-xs rounded-lg border border-slate-300 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent font-medium">
+              <option value="platoon">Platoon Commander — Localized Line-of-Sight, Tactical Engagement</option>
+              <option value="company" selected>Company / Battle Group Commander — Macro Operational View, Delayed Feeds</option>
+              <option value="signals">Signals & EW Officer — RF Contours, Jamming Vector Analysis, Relay Resilience</option>
+              <option value="intel">Military Intelligence (G2/MI) — Reliability Scoring, Spoof Detection & OSINT</option>
+              <option value="godview">Directing Staff (DS / Instructor) — Unfiltered Ground Truth, Live Injects</option>
+            </select>
+            <span class="text-[11px] text-slate-500 mt-1 block">Role activates Innovation 02 (Role-Based Information Fog) to deliver asymmetric information.</span>
+          </div>
+
+        </div>
+
+        <!-- Security Affirmation -->
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-600 flex items-start gap-2.5">
+          <input type="checkbox" id="authConfirm" checked required class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+          <label for="authConfirm" class="leading-relaxed">
+            I verify that I am entering an authorized training simulation. All tactical decisions, OODA loop latencies, and responses will be recorded into the <strong>Commander Decision DNA (04)</strong> cognitive registry for after-action review.
+          </label>
+        </div>
+
+        <!-- Action Button -->
+        <button type="submit" class="w-full py-3 px-4 bg-blue-700 hover:bg-blue-800 text-white font-semibold text-xs rounded-xl shadow-md transition flex items-center justify-center gap-2">
+          <span>Authenticate Officer & Enter Tactical Simulation Console</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </button>
+      </form>
     </div>
   </div>
 
-  <div class="max-w-7xl mx-auto space-y-4">
 
-    <!-- MAIN HEADER -->
+  <!-- ========================================== -->
+  <!-- 2. MAIN TACTICAL WORKSPACE (AFTER LOGIN)  -->
+  <!-- ========================================== -->
+  <div id="tacticalWorkspace" class="hidden max-w-7xl mx-auto space-y-4 transition-all duration-300">
+
+    <!-- TOP CLASSIFICATION & ACTIVE OFFICER DOSSIER STRIP -->
+    <div class="bg-slate-200/90 border border-slate-300 text-slate-700 text-[11px] font-mono font-semibold py-1.5 px-3 rounded flex flex-wrap justify-between items-center gap-2 tracking-wider">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-600 inline-block animate-pulse"></span>
+        <span id="activeDossierBadge">AUTHENTICATED: MAJ. VIKRAM RANA (IC-64821K) • 14 CORPS</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span>SECURITY LEVEL: SECRET // FORMATION SIMULATION</span>
+        <button onclick="handleOfficerLogout()" class="px-2 py-0.5 bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 rounded font-semibold text-[10px] transition">
+          Switch Officer / Log Out
+        </button>
+      </div>
+    </div>
+
+    <!-- MAIN APP HEADER -->
     <header class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex flex-wrap items-center justify-between gap-4">
       <div class="flex items-center gap-3.5">
         <div class="w-11 h-11 rounded-lg bg-blue-700 flex items-center justify-center text-white font-mono font-bold text-base shadow-sm">
@@ -144,10 +290,10 @@
           02 Role-Based Information Fog:
         </span>
         <div class="flex flex-wrap gap-1.5" id="roleButtonGroup">
-          <button onclick="switchRole('platoon')" id="roleBtn-platoon" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-blue-700 text-white shadow-sm transition">
+          <button onclick="switchRole('platoon')" id="roleBtn-platoon" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
             Platoon Commander (Ground Line-of-Sight)
           </button>
-          <button onclick="switchRole('company')" id="roleBtn-company" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
+          <button onclick="switchRole('company')" id="roleBtn-company" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-blue-700 text-white shadow-sm transition">
             Company Commander (Macro Delayed)
           </button>
           <button onclick="switchRole('signals')" id="roleBtn-signals" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
@@ -248,7 +394,7 @@
             </span>
           </div>
           <span id="roleIndicatorBadge" class="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
-            Role: Platoon Commander (FOV Masked)
+            Role: Company Commander (Macro View)
           </span>
         </div>
 
@@ -480,9 +626,16 @@
 
   <!-- SIMULATION ENGINE SCRIPT -->
   <script>
-    let activeRole = 'platoon';
+    let activeRole = 'company';
     let currentDpi = 62;
     let currentNoise = 48;
+    let currentOfficer = {
+      serviceNo: 'IC-64821K',
+      rank: 'Major',
+      name: 'Vikram Rana',
+      formation: '14 Corps / Trishul Strike',
+      role: 'company'
+    };
 
     const canvas = document.getElementById('tacticalGridCanvas');
     const ctx = canvas.getContext('2d');
@@ -495,6 +648,40 @@
       { id: 'contact', name: 'Unverified Contact', x: 380, y: 280, type: 'unknown', roles: ['intel', 'godview', 'platoon'] },
       { id: 'jammer', name: 'EW Emitter 04', x: 420, y: 150, type: 'ew', roles: ['signals', 'godview'] }
     ];
+
+    // Profile Presets
+    function fillOfficerProfile(serviceNo, rank, name, formation, role) {
+      document.getElementById('officerServiceNo').value = serviceNo;
+      document.getElementById('officerRank').value = rank;
+      document.getElementById('officerName').value = name;
+      document.getElementById('officerFormation').value = formation;
+      document.getElementById('officerAssignmentRole').value = role;
+    }
+
+    // Login Handler
+    function handleOfficerLogin(e) {
+      e.preventDefault();
+      currentOfficer.serviceNo = document.getElementById('officerServiceNo').value;
+      currentOfficer.rank = document.getElementById('officerRank').value;
+      currentOfficer.name = document.getElementById('officerName').value;
+      currentOfficer.formation = document.getElementById('officerFormation').value;
+      currentOfficer.role = document.getElementById('officerAssignmentRole').value;
+
+      document.getElementById('activeDossierBadge').innerText = 
+        `AUTHENTICATED: ${currentOfficer.rank.toUpperCase()} ${currentOfficer.name.toUpperCase()} (${currentOfficer.serviceNo}) • ${currentOfficer.formation.toUpperCase()}`;
+
+      document.getElementById('loginGateway').classList.add('hidden');
+      document.getElementById('tacticalWorkspace').classList.remove('hidden');
+
+      // Set initial role matching officer choice
+      switchRole(currentOfficer.role);
+    }
+
+    // Logout Handler
+    function handleOfficerLogout() {
+      document.getElementById('tacticalWorkspace').classList.add('hidden');
+      document.getElementById('loginGateway').classList.remove('hidden');
+    }
 
     function renderTacticalMap() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -518,7 +705,7 @@
         ctx.stroke();
       }
 
-      // Topographic contours (subtle grey lines)
+      // Topographic contours
       ctx.strokeStyle = '#cbd5e1';
       ctx.setLineDash([4, 4]);
       ctx.beginPath();
@@ -529,14 +716,12 @@
 
       // 02 Role-based information fog
       if (activeRole === 'platoon') {
-        // Line of sight mask: clear near platoon, shaded fog outside
         const fog = ctx.createRadialGradient(230, 200, 50, 230, 200, 200);
         fog.addColorStop(0, 'rgba(255, 255, 255, 0)');
         fog.addColorStop(1, 'rgba(226, 232, 240, 0.88)');
         ctx.fillStyle = fog;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       } else if (activeRole === 'signals') {
-        // RF Jamming spectrum visualization
         const rf = ctx.createRadialGradient(420, 150, 15, 420, 150, 170);
         rf.addColorStop(0, 'rgba(239, 68, 68, 0.25)');
         rf.addColorStop(0.6, 'rgba(168, 85, 247, 0.15)');
@@ -547,12 +732,11 @@
         ctx.fill();
       }
 
-      // Render tactical symbols (clean military style)
+      // Render tactical symbols
       unitDatabase.forEach(u => {
         if (!u.roles.includes(activeRole)) return;
 
         if (u.type === 'friendly') {
-          // Blue box standard NATO style
           ctx.fillStyle = '#2563eb';
           ctx.fillRect(u.x - 7, u.y - 7, 14, 14);
           ctx.strokeStyle = '#1d4ed8';
@@ -563,7 +747,6 @@
           ctx.font = '500 10px monospace';
           ctx.fillText(u.name, u.x - 24, u.y + 18);
         } else if (u.type === 'hostile') {
-          // Red diamond
           ctx.fillStyle = '#dc2626';
           ctx.beginPath();
           ctx.moveTo(u.x, u.y - 8);
@@ -577,7 +760,6 @@
           ctx.font = '600 10px monospace';
           ctx.fillText(u.name, u.x - 34, u.y - 12);
         } else if (u.type === 'unknown') {
-          // Amber circle
           ctx.fillStyle = '#d97706';
           ctx.beginPath();
           ctx.arc(u.x, u.y, 7, 0, Math.PI * 2);
@@ -676,7 +858,7 @@
           </p>
         `;
         currentDpi = Math.max(35, currentDpi - 16);
-        currentNoise = Math.min(88, currentNoise + 8); // 01 Adaptive scaling reacts to good decision!
+        currentNoise = Math.min(88, currentNoise + 8);
       } else if (option === 'A') {
         fb.className = 'mt-3 p-3 rounded-lg border border-red-300 bg-red-50 text-xs';
         fb.innerHTML = `
@@ -759,7 +941,7 @@
       currentDpi = 62;
       currentNoise = 48;
       updateDashboardTelemetry();
-      switchRole('platoon');
+      switchRole(currentOfficer.role || 'company');
       document.getElementById('evaluationFeedback').classList.add('hidden');
     }
 
